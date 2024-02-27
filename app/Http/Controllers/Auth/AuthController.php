@@ -118,6 +118,7 @@ class AuthController extends Controller
                 $user->save();
      
                 event(new PasswordReset($user));
+                dd($user);
             }
         );
         return $status === Password::PASSWORD_RESET
