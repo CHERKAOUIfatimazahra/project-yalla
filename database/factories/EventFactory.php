@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 class EventFactory extends Factory
 {
@@ -25,20 +26,14 @@ class EventFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'location' => $this->faker->address,
-            'start_datetime' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'end_datetime' => $this->faker->dateTimeBetween('now', '+2 months'),
+            'start_datetime' => $this->faker->dateTime($max = 'now', $timezone = null),
+            'end_datetime' => $this->faker->dateTime($max = 'now', $timezone = null),
             'type' => $this->faker->randomElement(['Physical', 'Online']),
-            'price' => $this->faker->randomFloat(2, 0, 100),
+            'price' => $this->faker->numberBetween($min = 0, $max = 1000),
             'image' => $this->faker->imageUrl(),
-            'user_id' => function () {
-                return \App\Models\User::factory()->create()->id;
-            },
-            'category_id' => function () {
-                return \App\Models\Category::factory()->create()->id;
-            },
-            'subcategory_id' => function () {
-                return \App\Models\SubCategory::factory()->create()->id;
-            },
+            'user_id' => $this->faker->numberBetween(DB::table('users')->min('id'),DB::table('users')->max('id')),
+            'category_id' => $this->faker->numberBetween(DB::table('categories')->min('id'),DB::table('categories')->max('id')),
+            'subcategory_id' => $this->faker->numberBetween(DB::table('sub_categories')->min('id'),DB::table('sub_categories')->max('id')),
         ];
     }
 }
