@@ -27,15 +27,12 @@
 </head>
 
 <body class="">
+    
     @include('partials.header')
-    {{-- <x-success-message />
-    <x-error-message /> --}}
-
 
     <main>
         @yield('content')
     </main>
-
 
     @include('partials.footer')
 </body>

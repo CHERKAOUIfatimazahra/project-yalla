@@ -23,14 +23,12 @@
     <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
 
     {{-- title --}}
-    <title>YALLA</title>
+    <title>Evento</title>
 </head>
 
 <body class="">
     @include('partials.sidbar')
-    {{-- <x-success-message />
-    <x-error-message /> --}}
-
+    @include('partials.navbar')
 
     <main>
         @yield('content')

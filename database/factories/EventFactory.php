@@ -30,10 +30,14 @@ class EventFactory extends Factory
             'end_datetime' => $this->faker->dateTime($max = 'now', $timezone = null),
             'type' => $this->faker->randomElement(['Physical', 'Online']),
             'price' => $this->faker->numberBetween($min = 0, $max = 1000),
+            'tickets_available' => $this->faker->numberBetween(10, 200),
             'image' => $this->faker->imageUrl(),
+
+            'is_published' => false,
+            'reservation_type' => $this->faker->randomElement(['automatique', 'manuelle']),
+            
             'user_id' => $this->faker->numberBetween(DB::table('users')->min('id'),DB::table('users')->max('id')),
             'category_id' => $this->faker->numberBetween(DB::table('categories')->min('id'),DB::table('categories')->max('id')),
-            'subcategory_id' => $this->faker->numberBetween(DB::table('sub_categories')->min('id'),DB::table('sub_categories')->max('id')),
         ];
     }
 }

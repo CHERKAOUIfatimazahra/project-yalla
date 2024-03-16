@@ -14,12 +14,28 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        // Create default permissions
-        Permission::create(['name' => 'create-event']);
-        Permission::create(['name' => 'edit-event']);
-        Permission::create(['name' => 'delete-event']);
-        Permission::create(['name' => 'view-event']);
-        Permission::create(['name' => 'register-for-event']);
-        Permission::create(['name' => 'cancel-registration']);
+        $permissions = [
+            'create-event',
+            'edit-event',
+            'delete-event',
+            'view-event',
+            'register-for-event',
+            'cancel-registration',
+            'view-event-list',
+            'filter-events-by-category',
+            'search-events-by-title',
+            'view-event-details',
+            'manage-own-events',
+            'view-reservation-statistics',
+            'manage-reservation-approval',
+            'manage-users',
+            'manage-event-categories',
+            'approve-events',
+            'view-platform-statistics',
+        ];
+    
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
     }
 }
