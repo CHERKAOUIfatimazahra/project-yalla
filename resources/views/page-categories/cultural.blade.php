@@ -52,4 +52,27 @@
       </div>
     </div>
   </div>
+</div>
+<div class="flex justify-center">
+    <x-alert />
+</div>
+
+<div class="p-10">
+    <h1 class="text-center text-3xl font-bold">Find your events</h1>
+    <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
+        <div class="flex flex-wrap justify-center">
+          @if($publishedEvents->isEmpty())
+          <div class="text-white text-center">
+              <p>No events found in this category.</p>
+          </div>
+      @else
+          @foreach ($publishedEvents as $event)
+              <div class="m-3">
+                  <x-events-cards :event="$event"></x-events-cards>
+              </div>
+          @endforeach
+      @endif
+        </div>
+    </div>
+</div>
 @endsection

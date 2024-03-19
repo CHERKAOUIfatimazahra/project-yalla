@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageCategoryController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StaticController;
@@ -36,8 +37,11 @@ use Illuminate\Support\Facades\Route;
     // Contact page
     Route::view('/contact', 'contact');
     // single pages
-    Route::view('/business', 'page-categories.business');
-    Route::view('/entertainment', 'page-categories.entertainment');
+    // Route::view('/business', 'page-categories.business');
+    Route::get('/business', [PageCategoryController::class, 'business']);
+    Route::get('/entertainment', [PageCategoryController::class, 'entertainment']);
+    Route::get('/cultural', [PageCategoryController::class, 'cultural']);
+    // Route::view('/entertainment', 'page-categories.entertainment');
     Route::view('/gaming', 'page-categories.gaming');
     
 

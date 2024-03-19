@@ -18,9 +18,9 @@ class EventController extends Controller
         $user = auth()->user();
     
         if ($user->hasRole('admin')) {
-            $events = Event::latest()->paginate(10);
+            $events = Event::latest()->paginate(5);
         } else {
-            $events = Event::where('user_id', $user->id)->latest()->paginate(10);
+            $events = Event::where('user_id', $user->id)->latest()->paginate(5);
         }
         
         return view('dashbord.events.index', compact('events'))

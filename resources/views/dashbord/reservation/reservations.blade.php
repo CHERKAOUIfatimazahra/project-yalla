@@ -9,7 +9,7 @@
                         <div class="w-full md:w-1/2">
                             <!-- Search Form (if needed) -->
                         </div>
-                        @if ($message = Session::get('success'))
+                        {{-- @if ($message = Session::get('success'))
                             <div
                                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
                                 <strong class="font-bold">Success!</strong>
@@ -22,7 +22,8 @@
                                 <strong class="font-bold">Error!</strong>
                                 <p>{{ $message }}</p>
                             </div>
-                        @endif
+                        @endif --}}
+                        <x-alert />
                     </div>
                     <div class="overflow-x-auto">
                         

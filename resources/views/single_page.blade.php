@@ -2,20 +2,7 @@
 
 @section('content')
     <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
-        @if ($message = Session::get('success'))
-                <div
-                    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                    <strong class="font-bold">Success!</strong>
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            @if ($message = Session::get('error'))
-                <div
-                    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                    <strong class="font-bold">Error!</strong>
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
+        <x-alert />
         <div class="bg-cover bg-center text-center overflow-hidden"
             style="min-height: 500px; background-image: url({{ asset('uploads/events/' . $event->image) }})"
             title="Event Image">

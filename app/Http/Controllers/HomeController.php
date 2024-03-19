@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(5);
+        $user = User::all();
+        $categories = Category::all();
+        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(6);
 
-        return view('home', compact('publishedEvents'));
+        return view('home', compact('publishedEvents','user','categories'));
     }
     public function eventShow(Event $event)
     {
@@ -21,7 +24,7 @@ class HomeController extends Controller
     public function findEvent()
     {
         $categories = Category::get();
-        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(5);
+        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(8);
 
         return view('find-event', compact('publishedEvents','categories'));
     }

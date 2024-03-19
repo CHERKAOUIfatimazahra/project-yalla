@@ -3,20 +3,7 @@
 @section('content')
     <div class="p-4 sm:ml-64">
         <section class="bg-white p-3 sm:p-5">
-            @if ($message = Session::get('success'))
-                            <div
-                                class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                                <strong class="font-bold">Success!</strong>
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
-                        @if ($message = Session::get('error'))
-                            <div
-                                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                                <strong class="font-bold">Error!</strong>
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
+            <x-alert />
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
                     

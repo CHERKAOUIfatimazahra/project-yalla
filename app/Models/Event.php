@@ -24,13 +24,13 @@ class Event extends Model
         'user_id',
         'category_id'
     ];
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, "user_id");
     }
     public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, "category_id");
     }
     public function reserve()
     {

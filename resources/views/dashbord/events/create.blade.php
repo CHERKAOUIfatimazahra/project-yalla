@@ -1,28 +1,19 @@
 @extends('layout.add')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-                <a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-7 p-7"
-                    href="{{ route('events.index') }}"> Back</a>
-            </div>
-        </div>
-    </div>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <section class="bg-white" >
         <div class="py-4 mx-auto max-w-2xl lg:py-16">
+            <div class="p-6">
+                <div class="row">
+                    <div class="col-lg-12 margin-tb">
+                        <div class="pull-right">
+                            <a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-7 p-7"
+                                href="{{ route('events.index') }}"> Back</a>
+                        </div>
+                    </div>
+                </div>
+                <x-alert />
+            </div>
             <h2 class="mb-4 text-xl font-bold text-gray-900">Add a new Event</h2>
             <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
