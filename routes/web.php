@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth', 'role:organizer']], function() {
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
     Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    Route::get("/generateTicket/{reservation}", [TicketController::class, 'generateTicket'])->name("generateTicket");
 });
 
 Route::middleware('auth')->group(function () {

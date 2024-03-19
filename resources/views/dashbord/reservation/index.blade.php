@@ -29,33 +29,24 @@
                                     <p class="px-4 py-3">No resrvation.</p>
                                 @else
                                     @foreach ($reservations as $reservation)
+                                    @if($reservation->status_reservation !== "rejected")
                                         <tr class="border-b">
                                             <td class="px-4 py-3">{{ $reservation->event->title }}</td>
                                             <td class="px-4 py-3">{{ $reservation->user->name }}</td>
                                             <td class="px-4 py-3">{{ $reservation->place }}</td>
+                                            @if($reservation->status_reservation == "pending")
                                             <td class="px-4 py-3">
-                                                <form action="{{ route('reservations.updateStatus', $reservation->id) }}"
-                                                    method="POST">
+                                                <form method="POST" action="{{ route('reservations.updateStatus', $reservation->id) }}">
                                                     @csrf
                                                     @method('PUT')
-                                                    <select name="status_reservation"
-                                                        class="bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-300">
-                                                        <option value="pending" class="text-gray-700 bg-yellow-100"
-                                                            {{ $reservation->status_reservation == 'pending' ? 'selected' : '' }}>
-                                                            Pending</option>
-                                                        <option value="approved" class="px-2 rounded py-1 bg-green-500"
-                                                            {{ $reservation->status_reservation == 'approved' ? 'selected' : '' }}>
-                                                            Approved</option>
-                                                        <option value="rejected" class="text-red-700 bg-red-100"
-                                                            {{ $reservation->status_reservation == 'rejected' ? 'selected' : '' }}>
-                                                            Rejected</option>
-                                                    </select>
-                                            <td>
-                                                <button type="submit"
-                                                    class="text-indigo-600 hover:text-indigo-900">Update</button>
+                                                    <div class="flex">
+                                                        <input type="hidden" name="status_reservation" value="{{ $reservation->status_reservation }}">
+                                                        <button type="submit" name="status" value="approved" class="mr-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">Approved</button>
+                                                        <button type="submit" name="status" value="rejected" class="bg-red-100 hover:bg-red-200 px-4 py-2 rounded-md">Rejected</button>
+                                                    </div>
+                                                </form>
                                             </td>
-                                            </form>
-                                            </td>
+                                            @endif
                                             <td class="px-4 py-3">
                                                 {{-- <a href="{{ route('reservations.show', $reservation->id) }}" class="text-primary-600 hover:text-primary-900">View</a>
                                     <a href="{{ route('reservations.edit', $reservation->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -66,6 +57,7 @@
                                     </form> --}}
                                             </td>
                                         </tr>
+                                    @endif
                                     @endforeach
                                 @endif
                             </tbody>

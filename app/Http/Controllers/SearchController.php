@@ -32,4 +32,5 @@ class SearchController extends Controller
             'status' => $events->isNotEmpty(),
         ]);
     }
+    
 }

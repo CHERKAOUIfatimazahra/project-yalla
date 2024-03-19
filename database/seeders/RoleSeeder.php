@@ -78,6 +78,7 @@ class RoleSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
+            'image' => '1.jpg'
         ]);
         $admin->roles()->attach($roleAdmin);
 
@@ -85,6 +86,7 @@ class RoleSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@gmail.com',
             'password' => bcrypt('user'),
+            'image' => '1.jpg'
         ]);
         $user->roles()->attach($roleSpectator);
     }

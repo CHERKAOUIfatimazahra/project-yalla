@@ -31,4 +31,5 @@ class TicketController extends Controller
 
     return view('dashbord.reservation.tickets_reservations', compact('reservation', 'userId'));
 }
+
 }

@@ -60,7 +60,19 @@ class ReservationController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $reservation = Reservation::findOrFail($id);
-        $reservation->status_reservation = $request->status_reservation;
+
+        // Get the status from the button value
+        $status = $request->input('status');
+
+        // If the status is rejected and the current status is not already rejected
+        if ($status === 'rejected' && $reservation->status_reservation !== 'rejected') {
+            // Increment the tickets available for the event
+            $event = $reservation->event;
+            $event->increment('tickets_available');
+        }
+
+        // Update reservation status based on the submitted value
+        $reservation->status_reservation = $status;
         $reservation->save();
 
         return redirect()->back()->with('success', 'Reservation status updated successfully.');
