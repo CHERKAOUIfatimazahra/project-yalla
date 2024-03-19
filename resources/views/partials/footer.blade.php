@@ -3,7 +3,7 @@
 
         <div class="sm:col-span-2">
             <a href="/" class="inline-flex items-center">
-                <img src="images/evento.png" alt="Evento" class="h-60 w-60">
+                <img src="{{ asset('images/1.jpg') }}" alt="YALLA" class="h-60 w-60">
             </a>
             <div class="mt-6 lg:max-w-xl">
                 <p class="text-sm text-gray-800">
@@ -16,50 +16,45 @@
             </div>
         </div>
 
-        <div class="flex flex-col gap-2 text-sm">
-            <p class="text-base font-bold tracking-wide text-gray-900">Popular Courses</p>
-            <a href="#">UPSC - Union Public Service Commission</a>
-            <a href="#">General Knowledge</a>
-            <a href="#">MBA</a>
-            <p class="text-base font-bold tracking-wide text-gray-900">Popular Topics</p>
-            <a href="#">Human Resource Management</a>
-            <a href="#">Operations Management</a>
-            <a href="#">Marketing Management</a>
+        <div>
+            <p class="text-base font-bold tracking-wide text-gray-900">Event Categories</p><br>
+            <a href="#">Business</a><br>
+            <a href="#">Social</a><br>
+            <a href="#">Cultural</a><br>
+            <a href="#">Educational</a><br>
+            <a href="#">Sporting</a><br>
+            <a href="#">Entertainment</a><br>
+            <a href="#">Gaming</a><br>
+            <a href="#">Coding</a><br>
         </div>
 
         <div>
-            <p class="text-base font-bold tracking-wide text-gray-900">COMPANY IS ALSO AVAILABLE ON</p>
+            <p class="text-base font-bold tracking-wide text-gray-900">Connect with Us</p>
             <div class="flex items-center gap-1 px-2">
                 <a href="#" class="w-full min-w-xl">
-                    <img src="https://mcqmate.com/public/images/icons/playstore.svg" alt="Playstore Button"
-                        class="h-10">
+                    <img src="https://mcqmate.com/public/images/icons/playstore.svg" alt="Playstore Button" class="h-10">
                 </a>
                 <a class="w-full min-w-xl" href="https://www.youtube.com/channel/UCo8tEi6SrGFP8XG9O0ljFgA">
                     <img src="https://mcqmate.com/public/images/icons/youtube.svg" alt="Youtube Button" class="h-28">
                 </a>
             </div>
-            <p class="text-base font-bold tracking-wide text-gray-900">Contacts</p>
+            <p class="text-base font-bold tracking-wide text-gray-900">Contact Us</p>
             <div class="flex">
                 <p class="mr-1 text-gray-800">Email:</p>
-                <a href="#" title="send email">admin@company.com</a>
+                <a href="#" title="send email">admin@events.com</a>
             </div>
         </div>
 
     </div>
 
     <div class="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
-        <p class="text-sm text-gray-600">© Copyright 2023 Company. All rights reserved.</p>
+        <p class="text-sm text-gray-600">© 2024 Events. All rights reserved.</p>
         <ul class="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             <li>
-                <a href="#"
-                    class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Privacy
-                    &amp; Cookies Policy
-                </a>
+                <a href="#" class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Privacy Policy</a>
             </li>
             <li>
-                <a href="#"
-                    class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Disclaimer
-                </a>
+                <a href="#" class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Terms of Service</a>
             </li>
         </ul>
     </div>

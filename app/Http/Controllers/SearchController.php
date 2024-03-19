@@ -2,53 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    // public function index()
-    // {
-    //     $event = Event::get();
-    //     $categories = Category::get();
-    //     return view('events.search', compact('event','categories'));
-    // }
-
     public function search(Request $request)
     {
-        $event = Event::query();
-        $categories = Category::get();
-        if ($request->category) {
-            $event->where('title', 'LIKE', '%' . $request->search_input . '%')
-                    ->where('category_id', $request->category)
-                    ->where("is_published" , 1);
+        $query = Event::query();
+
+        if ($request->has('category')) {
+            $query->where('category_id', $request->category);
         }
 
-        else{
-            $event->where('title', 'LIKE', '%' . $request->search_input . '%')
-                    ->where("is_published" , 1);
+        if ($request->has('search_string')) {
+            $query->where('title', 'like', '%' . $request->search_string . '%');
         }
 
-        
-        $filteredEvents = $event->get();
-            if($filteredEvents->count()){
-                return response()->json(['events' => $filteredEvents]);
-            }
-            else{
-                response()->json(['events' => 0]);
-            }   
-    }
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $query->whereBetween('start_datetime', [$request->start_date, $request->end_date]);
+        }
 
-    public function filterByCategory($ids)
-    {
-        // $ids = explode(',', $ids);
+        $events = $query->where('is_published', true)
+                        ->orderBy('start_datetime', 'desc')
+                        ->paginate(6);
 
-        // if (count($ids) == 0) {
-        //     $filteredEvents = Event::get();
-        // } else {
-        //     $filteredEvents = Event::whereIn('category_id', $ids)->get();
-        // }
-        // return response()->json(['products' => $filteredEvents]);
+        return response()->json([
+            'events' => $events,
+            'status' => $events->isNotEmpty(),
+        ]);
     }
 }

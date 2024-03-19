@@ -31,49 +31,52 @@
     <section>
         <div class="max-w-4xl mx-auto p-3">
             <x-alert />
-            <form id="searchForm">
-                <label for="default-search"
-                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-                <div class="relative">
-                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            <div class="flex flex-col">
+                <form id="searchForm">
+                    <div class="relative mb-10 w-full flex  items-center justify-between rounded-md">
+                        <svg class="absolute left-2 block h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" class=""></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" class=""></line>
                         </svg>
+                        <input type="search" id="default-search" name="search"
+                            class="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-40 pl-12 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            placeholder="Search by name, type, manufacturer, etc" />
                     </div>
 
-                    <input type="search" id="default-search"
-                        class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 white:bg-gray-700 white:border-gray-600 white:placeholder-gray-400 white:text-white white:focus:ring-blue-500 white:focus:border-blue-500"
-                        placeholder="Search Mockups, Logos..." required>
-                    <button id="searchBtn"
-                        class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                </div>
-                <div class="relative flex lg:px-10 flex-col md:flex-row gap-3 rounded-lg">
-                    <!-- Category select -->
-                    <div>
-                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category Name</label>
-                        <select id="category" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="0" selected>All</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+                        <div class="flex flex-col">
+                            <label for="category" class="text-sm font-medium text-stone-600">category</label>
+                            <select id="category"
+                                class="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                <option value="0" selected>All</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="date" class="text-sm font-medium text-stone-600">Date of Entry</label>
+                            <input type="date" id="date"
+                                class="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="date" class="text-sm font-medium text-stone-600">Date of Entry</label>
+                            <input type="date" id="date"
+                                class="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
+                        </div>
+
+                        <div class="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
+                            <button id="searchBtn"
+                                class="rounded-lg bg-blue-600 px-8 py-2 font-medium text-white outline-none hover:opacity-80 focus:ring">Search</button>
+                        </div>
                     </div>
-                
-                    <!-- Start date input -->
-                    <div>
-                        <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
-                        <input type="date" id="start_date" name="start_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                    </div>
-                
-                    <!-- End date input -->
-                    <div>
-                        <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
-                        <input type="date" id="end_date" name="end_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         <div id="placeSearchResult">
             <div>
@@ -94,14 +97,16 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script> 
+    <script>
         $(document).ready(function() {
             $('#searchForm').submit(function(e) {
                 e.preventDefault();
                 var search_input = $('#default-search').val();
                 var token = $("meta[name='csrf-token']").attr("content");
                 var category = $("#category").val();
-                console.log(category)
+                var start_date = $("#start_date").val();
+                var end_date = $("#end_date").val();
+                console.log(category);
                 $.ajax({
                     type: 'GET',
                     url: '/search',
@@ -110,7 +115,9 @@
                     },
                     data: {
                         search_input: search_input,
-                        category: category
+                        category: category,
+                        start_date: start_date,
+                        end_date: end_date
                     },
                     success: function(response) {
                         table_post_row(response.events);
@@ -119,8 +126,8 @@
             });
 
             function table_post_row(events) {
-                  $("#placeSearchResult").html("");
-              if (events) {
+                $("#placeSearchResult").html("");
+                if (events && events.length > 0) {
                     events.forEach(event => {
                         $("#placeSearchResult").append(`
                 <div class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
@@ -158,13 +165,10 @@
                 `);
 
                     });
+                } else {
+                    $("#placeSearchResult").html(`<p>No events found</p>`);
                 }
-               else {
-                $("#placeSearchResult").html(`<p>No events found</p>`);
-                } 
-
             }
-
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
