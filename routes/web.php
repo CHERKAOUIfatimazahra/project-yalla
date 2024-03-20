@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageCategoryController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StaticController;
@@ -70,7 +71,7 @@ Route::group(['middleware' => ['auth', 'role:organizer']], function() {
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
     Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
-    Route::get("/generateTicket/{reservation}", [TicketController::class, 'generateTicket'])->name("generateTicket");
+    
 });
 
 Route::middleware('auth')->group(function () {
@@ -80,4 +81,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{eventId}/reserve', [ReservationController::class, 'reservation'])->name('events.reserve');
     Route::get('/user/{userId}/reservations', [TicketController::class, 'showReservations'])->name('user.reservations');
     Route::get('/user/{userId}/reservation/{reservationId}', [TicketController::class, 'userReservations'])->name('user.reservation.details');
+    Route::post('/generate-pdf/{userId}/{reservationId}', [PDFController::class, 'index'])->name('generate.pdf');
 });

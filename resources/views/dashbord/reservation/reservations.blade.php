@@ -39,6 +39,12 @@
                                                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                         Télécharger
                                                     </button>
+                                                    <form action="{{ route('generate.pdf', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id])}}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                            Envoyer par email
+                                                        </button>
+                                                    </form>
                                             </td>
                                             <td class="px-4 py-3">
                                                 <a href="{{ route('user.reservation.details', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id]) }}"
