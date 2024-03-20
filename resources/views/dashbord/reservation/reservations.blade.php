@@ -36,9 +36,12 @@
                                                     <div class="mt-4 text-red-500">reservation of
                                                         {{ $reservation->event->title }} is pending.</div>
                                                 @elseif ($reservation->status_reservation === 'approved')
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                <form action="{{ route('download.pdf', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id]) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                         Télécharger
                                                     </button>
+                                                </form>
                                                     <form action="{{ route('generate.pdf', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id])}}" method="POST">
                                                         @csrf
                                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -36,4 +36,19 @@ class PDFController extends Controller
             return redirect()->back()->with('success', 'Mail sent successfully');
         
     }
+    public function download($userId, $reservationId)
+    {
+        $user = auth()->user();
+        $reservation = Reservation::findOrFail($reservationId);
+
+        $data["title"] = "Ticket for your reservation";
+        $data["body"] = "This is Demo";
+
+        $pdf = PDF::loadView('emails.myTestMail', ['reservation' => $reservation, 'data' => $data]);
+
+        // Download the PDF file
+        $pdf->download('ticket.pdf');
+        
+        return redirect()->back()->with('success', 'Ticket successfully downloaded');
+    }
 }

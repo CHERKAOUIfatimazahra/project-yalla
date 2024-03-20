@@ -82,4 +82,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{userId}/reservations', [TicketController::class, 'showReservations'])->name('user.reservations');
     Route::get('/user/{userId}/reservation/{reservationId}', [TicketController::class, 'userReservations'])->name('user.reservation.details');
     Route::post('/generate-pdf/{userId}/{reservationId}', [PDFController::class, 'index'])->name('generate.pdf');
+    Route::post('/download-pdf/{userId}/{reservationId}', [PDFController::class, 'download'])->name('download.pdf');
 });
