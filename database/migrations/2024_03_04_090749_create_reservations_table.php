@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->string('place');
             $table->enum('status_reservation',['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
+            $table->string('reservation_code')->unique();
             $table->timestamps();
         });
     }

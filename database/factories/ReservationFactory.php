@@ -22,6 +22,8 @@ class ReservationFactory extends Factory
             'user_id' => $this->faker->numberBetween(DB::table('users')->min('id'),DB::table('users')->max('id')),
             'place' => $this->faker->unique()->randomNumber(4),
             'status_reservation'=> $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'payment_status' => $this->faker->randomElement(['paid', 'unpaid']),
+            'reservation_code' => $this->faker->unique()->uuid,
         ];
     }
 }
