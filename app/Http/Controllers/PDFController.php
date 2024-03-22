@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
   
 use App\Models\Reservation;
-
 use Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
     
@@ -49,8 +48,6 @@ class PDFController extends Controller
         $pdf->setPaper('a4', 'landscape');
         // Download the PDF file
         $pdf->download('ticket.pdf');
-        
-        // return redirect()->back()->with('success', 'Ticket successfully downloaded');
 
         return $pdf->download('ticket.pdf');
 
