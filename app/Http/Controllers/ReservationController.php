@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ReservationController extends Controller
 {
@@ -47,6 +48,7 @@ class ReservationController extends Controller
         $event->decrement('tickets_available');
         $placeNumber = ($event->tickets_available - $existingReservation)+1;
         $reservation->place = $placeNumber;
+        $reservation->reservation_code = str::uuid()->toString();
 
         if ($event->reservation_type === 'automatique') {
             $reservation->status_reservation = 'approved';

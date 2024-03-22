@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageCategoryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SearchController;
@@ -83,4 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{userId}/reservation/{reservationId}', [TicketController::class, 'userReservations'])->name('user.reservation.details');
     Route::post('/generate-pdf/{userId}/{reservationId}', [PDFController::class, 'index'])->name('generate.pdf');
     Route::post('/download-pdf/{userId}/{reservationId}', [PDFController::class, 'download'])->name('download.pdf');
+    Route::post('/events/{reservationId}/payment', [PaymentController::class, 'payment'])->name('payment.process');
+    Route::get('/payment/success', [PaymentController::class, 'payment_success'])->name('payment.success');
+    Route::get('/payment/cancel', [PaymentController::class, 'payment_cancel'])->name('payment.cancel');
 });

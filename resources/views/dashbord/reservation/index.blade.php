@@ -48,13 +48,11 @@
                                             </td>
                                             @endif
                                             <td class="px-4 py-3">
-                                                {{-- <a href="{{ route('reservations.show', $reservation->id) }}" class="text-primary-600 hover:text-primary-900">View</a>
-                                    <a href="{{ route('reservations.edit', $reservation->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="{{ route('reservations.destroy', $reservation->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                    </form> --}}
+                                                @if($reservation->payment_status == "unpaid")
+                                                <td class="px-4 py-3">
+                                                    
+                                                </td>
+                                                @endif 
                                             </td>
                                         </tr>
                                     @endif

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
   
 use App\Models\Reservation;
-use PDF;
+
 use Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
     
 class PDFController extends Controller
 {
@@ -45,10 +46,13 @@ class PDFController extends Controller
         $data["body"] = "This is Demo";
 
         $pdf = PDF::loadView('emails.myTestMail', ['reservation' => $reservation, 'data' => $data]);
-
+        $pdf->setPaper('a4', 'landscape');
         // Download the PDF file
         $pdf->download('ticket.pdf');
         
-        return redirect()->back()->with('success', 'Ticket successfully downloaded');
+        // return redirect()->back()->with('success', 'Ticket successfully downloaded');
+
+        return $pdf->download('ticket.pdf');
+
     }
 }
