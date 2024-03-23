@@ -12,21 +12,20 @@
                 <div class="bg-white relative top-0 -mt-32 p-5 sm:p-10">
                     <h1 href="#" class="text-gray-900 font-bold text-3xl mb-2">{{ $event->title }}</h1>
                     
-                    <h2 class="text-base leading-8 my-5">{{ $event->description }}</h2>
+                    <h2 class="text-2xl font-bold my-5">{{ $event->description }}</h2>
 
-                    <h3 class="text-2xl font-bold my-5">{{ $event->location }}</h3>
-                    <p>{{ $event->start_datetime }}</p>
-                    <p>{{ $event->end_datetime }}</p>
+                    <h3 class="text-2xl font-bold my-5">location : {{ $event->location }}</h3>
+                    <p>Event start at :{{ \Carbon\Carbon::parse($event->start_datetime)->format('Y-F-d') }}</p>
+                    <p>Event end at :{{ \Carbon\Carbon::parse($event->end_datetime)->format('Y-F-d') }}</p>
                     <p>{{ $event->type }}</p>
-                    <h3>{{ $event->price }} DH</h3>
+                    <h3>{{ $event->price }}£</h3>
                     <p>{{ $event->tickets_available }} place</p>
 
                 </div>
                 <form action="{{ route('events.reserve', ['eventId' => $event->id]) }}" method="POST">
                     @csrf
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                        Reserve Now
-                    </button>
+                    <button type="submit" class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                        Reserve now</button>
                 </form>
             </div>
         </div>

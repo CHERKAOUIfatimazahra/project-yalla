@@ -1,6 +1,7 @@
 @extends('layout.app')
 
 @section('content')
+<x-alert />
 <style>
     .login_img_section {
         background: url('images/6.png') center center;
@@ -67,7 +68,14 @@
                             id="password" placeholder="password confirmation" />
 
                     </div>
-                    
+
+                    {{-- <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <input type="file" id="image" name="image" class="pl-2 w-full outline-none border-none">
+                    </div>
+                     --}}
                     <div class="mb-8">
                         <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Choose Your Role:</label>
                         <select id="role" name="role" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
