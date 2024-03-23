@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservationController extends Controller
 {
@@ -41,14 +42,21 @@ class ReservationController extends Controller
             return redirect()->back()->with('error', 'Sorry, all the places already reserved!');
         }
 
-//create reservation
+        //create reservation
         $reservation = new Reservation();
         $reservation->user_id = $user->id;
         $reservation->event_id = $event->id;
         $event->decrement('tickets_available');
-        $placeNumber = ($event->tickets_available - $existingReservation)+1;
+        $placeNumber = ($event->tickets_available - $existingReservation) + 1;
         $reservation->place = $placeNumber;
-        $reservation->reservation_code = str::uuid()->toString();
+        $reservation->reservation_code = Str::uuid()->toString();
+
+        // Generate QR code
+        $qrCodePath = 'qrcodes/reservation_' . $reservation->id . '.png';
+        QrCode::format('png')->size(400)->generate($reservation->reservation_code, public_path($qrCodePath));
+
+        // Save QR code path in reservation
+        $reservation->qr_code_path = $qrCodePath;
 
         if ($event->reservation_type === 'automatique') {
             $reservation->status_reservation = 'approved';

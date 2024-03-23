@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->string('reservation_code')->unique();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**
