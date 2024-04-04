@@ -33,6 +33,9 @@
                     </div>
                 </div>
                 <div class="w-1/3 flex justify-end">
+                    <<img src="{{ asset($reservation->qr_code_path) }}" alt="Reservation QR Code">
+                </div>
+                <div class="w-1/3 flex justify-end">
                     <img src="https://www.printempsdunumerique.fr/wp-content/uploads/2016/09/code-barre-2d.jpg" alt="Event Logo" class="w-8">
                 </div>
             </div>

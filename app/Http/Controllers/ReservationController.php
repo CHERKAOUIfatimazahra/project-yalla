@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
 
 class ReservationController extends Controller
 {
@@ -24,12 +25,12 @@ class ReservationController extends Controller
 
         $user = auth()->user();
         $event = Event::findOrFail($eventId);
-//cheque reservation date 
+    //cheque reservation date 
         $currentTime = Carbon::now();
         if ($currentTime->gt($event->end_datetime)) {
             return redirect()->back()->with('error', 'Sorry, you cannot reserve for events outside the event timeframe.');
         }
-//cheque user reservation
+    //cheque user reservation
         $existingReservation = Reservation::where('event_id', $eventId)
                                       ->where('user_id', $user->id)
                                       ->first();
@@ -37,7 +38,7 @@ class ReservationController extends Controller
         if ($existingReservation) {
             return redirect()->back()->with('error', 'You have already reserved this event.');
         }
-//cheque ticket available
+    //cheque ticket available
         if ($event->tickets_available <= 0) {
             return redirect()->back()->with('error', 'Sorry, all the places already reserved!');
         }
@@ -51,18 +52,23 @@ class ReservationController extends Controller
         $reservation->place = $placeNumber;
         $reservation->reservation_code = Str::uuid()->toString();
 
-        // Generate QR code
-        $qrCodePath = 'qrcodes/reservation_' . $reservation->id . '.png';
-        QrCode::format('png')->size(400)->generate($reservation->reservation_code, public_path($qrCodePath));
-
-        // Save QR code path in reservation
-        $reservation->qr_code_path = $qrCodePath;
-
         if ($event->reservation_type === 'automatique') {
             $reservation->status_reservation = 'approved';
         } else {
             $reservation->status_reservation = 'pending';
         }
+        
+        //generate QR code 
+        $qrCode = QrCode::format('png')
+                        ->size(400)
+                        ->generate($reservation->reservation_code);
+
+        // Save QR code to storage
+        $qrCodePath = 'qrcodes/reservation_' . $reservation->id . '.png';
+        Storage::put($qrCodePath, $qrCode);
+
+        // Update reservation with QR code path
+        $reservation->qr_code_path = $qrCodePath;
         $reservation->save();
 
         return redirect()->back()->with('success', 'Reservation made successfully.');
