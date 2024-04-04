@@ -1,66 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# YALLA Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview:
+### Problem Statement:
+Organizers face a major challenge in effectively reaching their target audience when promoting events. 80% of them encounter obstacles in broadcasting their events to interested individuals, thus limiting the success of their initiatives.
 
-## About Laravel
+### Proposed Solution:
+The YALLA project proposes an innovative solution in the form of an intelligent platform dedicated to the creation and promotion of events. By using recommendation mechanisms and robust integration with social networks, YALLA aims to proactively connect organizers with potential participants, thus solving the challenge of event visibility.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Quick Description:
+YALLA is an intelligent web platform that simplifies the creation, promotion, and management of events. It offers a user-friendly interface to organizers and participants, facilitating a seamless experience from the beginning to the end of the event process.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Context:
+In a landscape where events play a central role in society, YALLA intervenes to facilitate the connection between organizers and their audience. Whether for cultural, sports, or professional events, YALLA caters to a wide range of initiatives.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features:
 
-## Learning Laravel
+### Event Creation:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Complete form to enter event details.
+Media integration (images) for attractive visual presentation.
+Event Validation:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Validation of events created by organizers before publication on the platform.
+Consultation and management of events awaiting validation.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Access to General Statistics:
 
-## Laravel Sponsors
+Consultation of general statistics on platform usage, including the number of users, number of events created, etc.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Event Category Management:
 
-### Premium Partners
+Addition, modification, and deletion of event categories available on the platform.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Site Settings Management:
 
-## Contributing
+Configuration of general site settings, such as language options, notification settings, etc.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## User Roles:
 
-## Code of Conduct
+### Event Organizer:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Creates and manages events, whether physical or online.
+Accesses statistics and feedback.
 
-## Security Vulnerabilities
+### Participant:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Explores, registers, and participates in events, whether physical or online.
+Manages registrations and follows favorite events.
 
-## License
+### Administrator:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Manages users (creation, editing, deletion) with access restrictions.
+Validates events created by organizers before publication on the platform.
+Accesses general statistics on platform usage.
+
+# User Stories:
+
+## As an event organizer:
+I want to be able to create a new event by specifying its title, description, date, location, category, and the number of available seats.
+I want to be able to manage my existing events, including tracking registrations and receiving notifications.
+I want access to statistics on bookings for my events.
+I want the option to choose between automatic acceptance of bookings or manual validation.
+
+## As a participant:
+I want to register on the platform by providing my name, email address, and password.
+I want the option to log in to my account using my credentials.
+I want to be able to view the list of events available on the platform with pagination for easy navigation.
+I want to be able to filter events by category.
+I want to be able to search for events by title.
+I want to be able to view the details of an event, including its description, date, location, and the number of available seats.
+I want to be able to reserve a seat for an event.
+I want to be able to generate a ticket once my reservation is confirmed.
+
+## As an administrator:
+I want to be able to manage users.
+I want to be able to validate events created by organizers before publication on the platform.
+I want access to general statistics on platform usage.
+
+## Conclusion:
+The YALLA project aims to meet the needs of event organizers as well as participants by providing a comprehensive and user-friendly platform for the creation, promotion, and management of events of all kinds.
