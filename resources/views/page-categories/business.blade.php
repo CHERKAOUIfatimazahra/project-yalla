@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
-    <div class="relative overflow-hidden bg-cover bg-no-repeat bg-[50%] h-[500px] bg-[url('images/bussniss.webp')]">
-        <div class="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed bg-[hsla(0,0%,0%,0.75)]">
+    <div class="relative overflow-hidden bg-cover bg-no-repeat bg-[30%] h-[500px] bg-[url('images/bussniss.webp')]">
+        <div class="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-fixed ">
             <div class="flex h-full items-center justify-center">
                 <div class="px-6 text-center text-white md:px-12">
                     <h1 class="mt-6 mb-16 text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">

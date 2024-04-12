@@ -26,24 +26,22 @@ class PageCategoryController extends Controller
 
         return view('page-categories.business', compact('publishedEvents', 'user', 'categories'));
     }
-
-    public function entertainment()
+    public function social()
     {
         $user = User::all();
         $categories = Category::all();
         $publishedEvents = Event::where('is_published', 1)
                             ->whereHas('categories', function ($query) {
-                                $query->where('name', 'Entertainment');
+                                $query->where('name', 'Social');
                             })
                             ->latest()
                             ->paginate(6);
 
         if ($publishedEvents->isEmpty()) {
-            $publishedEvents = collect(); // Empty collection
+            $publishedEvents = collect(); 
         }
 
-        return view('page-categories.entertainment', compact('publishedEvents', 'user', 'categories'))
-                ->with('i', (request()->input('page', 1) - 1) * 6);
+        return view('page-categories.social', compact('publishedEvents', 'user', 'categories'));
     }
 
     public function cultural()
@@ -64,10 +62,121 @@ class PageCategoryController extends Controller
         return view('page-categories.cultural', compact('publishedEvents', 'user', 'categories'))
                 ->with('i', (request()->input('page', 1) - 1) * 6);
     }
+    public function educational()
+    {
+        $user = User::all();
+        $categories = Category::all();
+        $publishedEvents = Event::where('is_published', 1)
+                                ->whereHas('categories', function ($query) {
+                                    $query->where('name', 'educational');
+                                })
+                                ->latest()
+                                ->paginate(6);
 
+        if ($publishedEvents->isEmpty()) {
+            $publishedEvents = collect(); // Empty collection
+        }
+
+        return view('page-categories.educational', compact('publishedEvents', 'user', 'categories'))
+                ->with('i', (request()->input('page', 1) - 1) * 6);
+    }
+    public function sporting()
+    {
+        $user = User::all();
+        $categories = Category::all();
+        $publishedEvents = Event::where('is_published', 1)
+                                ->whereHas('categories', function ($query) {
+                                    $query->where('name', 'sporting');
+                                })
+                                ->latest()
+                                ->paginate(6);
+
+        if ($publishedEvents->isEmpty()) {
+            $publishedEvents = collect(); // Empty collection
+        }
+
+        return view('page-categories.sporting', compact('publishedEvents', 'user', 'categories'))
+                ->with('i', (request()->input('page', 1) - 1) * 6);
+    }
+    
+    public function entertainment()
+    {
+        $user = User::all();
+        $categories = Category::all();
+        $publishedEvents = Event::where('is_published', 1)
+                            ->whereHas('categories', function ($query) {
+                                $query->where('name', 'entertainment');
+                            })
+                            ->latest()
+                            ->paginate(6);
+
+        if ($publishedEvents->isEmpty()) {
+            $publishedEvents = collect(); // Empty collection
+        }
+
+        return view('page-categories.entertainment', compact('publishedEvents', 'user', 'categories'))
+                ->with('i', (request()->input('page', 1) - 1) * 6);
+    }
+    public function anime()
+    {
+        $user = User::all();
+        $categories = Category::all();
+        $publishedEvents = Event::where('is_published', 1)
+                            ->whereHas('categories', function ($query) {
+                                $query->where('name', 'anime');
+                            })
+                            ->latest()
+                            ->paginate(6);
+
+        if ($publishedEvents->isEmpty()) {
+            $publishedEvents = collect(); // Empty collection
+        }
+
+        return view('page-categories.anime', compact('publishedEvents', 'user', 'categories'))
+                ->with('i', (request()->input('page', 1) - 1) * 6);
+    }
+
+    
     public function eventShow(Event $event)
     {
         return view('single_page', compact('event')); 
     }
     
 }
+
+
+
+// class PageCategoryController extends Controller
+// {
+//     private $user;
+//     private $categories;
+
+//     public function __construct(User $user, Category $category)
+//     {
+//         $this->user = $user->all();
+//         $this->categories = $category->all();
+//     }
+
+//     private function getPublishedEventsByCategory($categoryName)
+//     {
+//         return Event::where('is_published', 1)
+//             ->whereHas('categories', function ($query) use ($categoryName) {
+//                 $query->where('name', $categoryName);
+//             })
+//             ->latest()
+//             ->paginate(6);
+//     }
+
+//     public function business()
+//     {
+//         $publishedEvents = $this->getPublishedEventsByCategory('Business');
+//         return view('page-categories.business', compact('publishedEvents', 'user', 'categories'));
+//     }
+
+//     // Other category methods follow the same structure...
+
+//     public function eventShow(Event $event)
+//     {
+//         return view('single_page', compact('event'));
+//     }
+// }

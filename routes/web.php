@@ -33,20 +33,28 @@ use Illuminate\Support\Facades\Route;
     // find event pages
     Route::get('/find-event', [HomeController::class,'findEvent']);
     Route::get('/filter',[SearchController::class,'index']);
-    Route::get('/search', [SearchController::class, 'search']); 
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
     // Route::get('/search/{ids}', [SearchController::class, 'filterByCategory']);
 
     // Contact page
     Route::view('/contact', 'contact');
-    // single pages
-    // Route::view('/business', 'page-categories.business');
-    Route::get('/business', [PageCategoryController::class, 'business']);
-    Route::get('/entertainment', [PageCategoryController::class, 'entertainment']);
-    Route::get('/cultural', [PageCategoryController::class, 'cultural']);
-    // Route::view('/entertainment', 'page-categories.entertainment');
-    Route::view('/gaming', 'page-categories.gaming');
     
+    // About page
+    Route::view('/about', 'about');
 
+    // create event page
+    Route::view('/create-event', 'create-event');
+
+    // single pages
+    Route::get('/business', [PageCategoryController::class, 'business']);
+    Route::get('/social', [PageCategoryController::class, 'social']);
+    Route::get('/cultural', [PageCategoryController::class, 'cultural']);
+    Route::get('/entertainment', [PageCategoryController::class, 'entertainment']);
+    Route::get('/sporting', [PageCategoryController::class, 'sporting']);
+    Route::get('/educational', [PageCategoryController::class, 'educational']);
+    Route::get('/gaming', [PageCategoryController::class, 'gaming']);
+    
+    // authentication
     Route::get('/login', [AuthController::class, 'index'])->name('login.index');
     Route::get('/register', [AuthController::class, 'create'])->name('register.index');
     Route::post('/login', [AuthController::class, 'login'])->name('login');

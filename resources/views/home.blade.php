@@ -104,7 +104,7 @@
                 </a>
 
                 <!-- Social Events -->
-                <a href="#" class="block w-1/2 py-10 text-center border lg:w-1/4">
+                <a href="/social" class="block w-1/2 py-10 text-center border lg:w-1/4">
                     <div>
                         <i class="fa-solid fa-person-breastfeeding fa-2xl"></i>
                         <p
@@ -115,7 +115,7 @@
                 </a>
 
                 <!-- Cultural Events -->
-                <a href="#" class="block w-1/2 py-10 text-center border lg:w-1/4">
+                <a href="/cultural" class="block w-1/2 py-10 text-center border lg:w-1/4">
                     <div>
                         <i class="fa-solid fa-people-group fa-2xl"></i>
                         <p
@@ -126,7 +126,7 @@
                 </a>
 
                 <!-- Educational Events -->
-                <a href="#" class="block w-1/2 py-10 text-center border lg:w-1/4">
+                <a href="/educational" class="block w-1/2 py-10 text-center border lg:w-1/4">
                     <div>
                         <i class="fa-solid fa-person-chalkboard fa-2xl"></i>
                         <p
@@ -137,7 +137,7 @@
                 </a>
 
                 <!-- Sporting Events -->
-                <a href="#" class="block w-1/2 py-10 text-center border lg:w-1/4">
+                <a href="/sporting" class="block w-1/2 py-10 text-center border lg:w-1/4">
                     <div>
                         <i class="fa-solid fa-medal fa-2xl"></i>
                         <p
@@ -170,17 +170,16 @@
                 </a>
 
                 <!-- Anime Events -->
-                <a href="#" class="block w-1/2 py-10 text-center border lg:w-1/4">
+                <a href="/gaming" class="block w-1/2 py-10 text-center border lg:w-1/4">
                     <div>
                         <i class="fa-solid fa-keyboard fa-2xl"></i>
                         <i class="fa-solid fa-laptop-code fa-2xl"></i>
                         <p
                             class="pt-4 text-sm font-medium capitalize font-body text-green-900 lg:text-lg md:text-base md:pt-6">
-                            Coding
+                            Gaming
                         </p>
                     </div>
                 </a>
-
             </div>
         </div>
     </section>
