@@ -59,16 +59,16 @@ class ReservationController extends Controller
         }
         
         //generate QR code 
-        $qrCode = QrCode::format('png')
-                        ->size(400)
-                        ->generate($reservation->reservation_code);
+        // $qrCode = QrCode::format('png')
+        //                 ->size(400)
+        //                 ->generate($reservation->reservation_code);
 
         // Save QR code to storage
-        $qrCodePath = 'qrcodes/reservation_' . $reservation->id . '.png';
-        Storage::put($qrCodePath, $qrCode);
+        // $qrCodePath = 'qrcodes/reservation_' . $reservation->id . '.png';
+        // Storage::put($qrCodePath, $qrCode);
 
         // Update reservation with QR code path
-        $reservation->qr_code_path = $qrCodePath;
+        // $reservation->qr_code_path = $qrCodePath;
         $reservation->save();
 
         return redirect()->back()->with('success', 'Reservation made successfully.');

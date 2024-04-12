@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained('events');
+            $table->foreignId('event_id')->constrained('events')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users');
             $table->string('place');
             $table->enum('status_reservation',['pending', 'approved', 'rejected'])->default('pending');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->string('reservation_code')->unique();
             $table->timestamps();
-        }); 
+        });
     }
 
     /**
