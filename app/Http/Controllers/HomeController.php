@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function findEvent()
     {
         $categories = Category::get();
-        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(8);
+        $publishedEvents = Event::where('is_published', 1)->latest()->paginate(9);
 
         return view('find-event', compact('publishedEvents','categories'));
     }
