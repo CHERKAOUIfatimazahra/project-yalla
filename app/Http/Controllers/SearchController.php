@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class SearchController extends Controller
     {
         $query = Event::query();
 
+       
         if ($request->has('category')) {
             $query->where('category_id', $request->category);
         }
@@ -22,7 +24,7 @@ class SearchController extends Controller
         if ($request->has('start_date') && $request->has('end_date')) {
             $query->whereBetween('start_datetime', [$request->start_date, $request->end_date]);
         }
-
+        
         $events = $query->where('is_published', true)
                         ->orderBy('start_datetime', 'desc')
                         ->paginate(6);

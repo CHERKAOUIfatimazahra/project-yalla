@@ -184,83 +184,96 @@
         </div>
     </section>
 
-    {{-- section for filter and events carts --}}
-    <section>
-        {{-- start filter --}}
-        <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
-            <form action="" method="GET">
-                <button type="submit" name="category" value="all"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    All categories</button>
+   {{-- section for filter and events cards --}}
+<section>
+    {{-- start filter --}}
+    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+        {{-- Loop through categories and create a button for each --}}
+        @foreach ($categories as $category)
+            <form id="filterForm{{ $category->id }}">
+                <button type="button" onclick="filterEvents({{ $category->id }})" class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
+                    {{ $category->name }}
+                </button>
             </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="business"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Business</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="social"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Social</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="cultural"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Cultural</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="educational"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Educational</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="sporting"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Sporting</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="entertainment"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Entertainment</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="gaming"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Gaming</button>
-            </form>
-            <form action="" method="GET">
-                <button type="submit" name="category" value="coding"
-                    class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    Coding</button>
-            </form>
-        </div>
-        {{-- end filter --}}
+        @endforeach
+    </div>
+    
+    <div class="flex justify-center">
+        <x-alert />
+    </div>
 
-        <div class="flex justify-center">
-            <x-alert />
-        </div>
-
-        <div>
-            <h1 class="text-center text-3xl font-bold">Find your events</h1>
-            <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
-                <div class="flex flex-wrap justify-center">
-                    @foreach ($publishedEvents as $event)
-                        <div class="m-3">
-                            <x-events-cards :event="$event"></x-events-cards>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="/find-event">
-                    <button class="px-6 py-2 mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">
-                        SHOW MORE EVENTS</button>
-                </a>
+    <div id="eventsContainer">
+        <h1 class="text-center text-3xl font-bold">Find your events</h1>
+        <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
+            <div class="flex flex-wrap justify-center" id="eventResults">
+                {{-- Events will be displayed here --}}
+                @foreach ($publishedEvents as $event)
+                    <div class="m-3">
+                        <x-events-cards :event="$event"></x-events-cards>
+                    </div>
+                @endforeach
             </div>
         </div>
-        
-    </section>
-    {{-- end section --}}
+        <div class="text-center">
+            <a href="/find-event">
+                <button class="px-6 py-2 mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">
+                    SHOW MORE EVENTS
+                </button>
+            </a>
+        </div>
+    </div>
+    
+</section>
+{{-- end section --}}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function filterEvents(categoryId) {
+        var formData = new FormData();
+        formData.append('categories', categoryId);
+
+        $.ajax({
+            url: '{{ route('search') }}',
+            method: 'GET',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                
+                if (response.events && response.events.length > 0) {
+                    var eventsHtml = '';
+                    response.events.forEach(function(event) {
+                        eventsHtml += '<div class="m-3">';
+                        eventsHtml += '<img src="' + event.image + '" class="w-full h-56 rounded-lg" />';
+                        eventsHtml += '<div class="px-4 my-6 text-center">';
+                        eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
+                        eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
+                        eventsHtml += '</div>';
+                        eventsHtml += '<div class="flex justify-between items-center ">';
+                        eventsHtml += '<span>' + event.start_datetime + '</span>';
+                        eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event.category_name + '</span>';
+                        eventsHtml += '</div>';
+                        eventsHtml += '<div class="mt-4 flex items-center flex-wrap gap-4">';
+                        eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event.price + '</h3>';
+                        eventsHtml += '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' + event.id + '">';
+                        eventsHtml += '@csrf';
+                        eventsHtml += '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Reserve now</button>';
+                        eventsHtml += '</form>';
+                        eventsHtml += '</div>';
+                        eventsHtml += '<a type="button" href="{{ route('events.eventShow', ['event' => 'event->id']) }}/' + event.id + '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
+                        eventsHtml += '</div>';
+                    });
+                    $('#eventResults').html(eventsHtml);
+                } else {
+                    $('#eventResults').html('<p>No events found</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+</script>
 
     <section class="relative py-32 lg:py-36 bg-white">
         <div class="mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5 flex flex-col lg:flex-row gap-10 lg:gap-12">
