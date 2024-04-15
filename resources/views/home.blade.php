@@ -229,29 +229,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     function filterEvents(categoryId) {
-        var formData = new FormData();
-        formData.append('categories', categoryId);
-
+         
         $.ajax({
-            url: '{{ route('search') }}',
+            url: `/search?category=${categoryId}`,
             method: 'GET',
-            data: formData,
+            
             processData: false,
             contentType: false,
             success: function(response) {
-                
+                console.log(response);
                 if (response.events && response.events.length > 0) {
                     var eventsHtml = '';
                     response.events.forEach(function(event) {
                         eventsHtml += '<div class="m-3">';
-                        eventsHtml += '<img src="' + event.image + '" class="w-full h-56 rounded-lg" />';
+                        eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event.image + '" class="w-full h-56 rounded-lg" />';
                         eventsHtml += '<div class="px-4 my-6 text-center">';
                         eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
                         eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
                         eventsHtml += '</div>';
                         eventsHtml += '<div class="flex justify-between items-center ">';
                         eventsHtml += '<span>' + event.start_datetime + '</span>';
-                        eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event.category_name + '</span>';
+                        eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event.categories.name + '</span>';
                         eventsHtml += '</div>';
                         eventsHtml += '<div class="mt-4 flex items-center flex-wrap gap-4">';
                         eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event.price + '</h3>';

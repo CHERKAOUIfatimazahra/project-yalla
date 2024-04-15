@@ -40,7 +40,7 @@
                             <circle cx="11" cy="11" r="8" class=""></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65" class=""></line>
                         </svg>
-                        <input type="search" id="default-search" name="search"
+                        <input type="search" id="search_string" name="search"
                             class="h-12 w-full cursor-text rounded-md border border-gray-100 bg-gray-100 py-4 pr-40 pl-12 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                             placeholder="Search by name, type, manufacturer, etc" />
                     </div>
@@ -59,14 +59,14 @@
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="date" class="text-sm font-medium text-stone-600">Date of Entry</label>
-                            <input type="date" id="date"
+                            <label for="date" class="text-sm font-medium text-stone-600">start_date</label>
+                            <input type="date" id="start_date"
                                 class="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="date" class="text-sm font-medium text-stone-600">Date of Entry</label>
-                            <input type="date" id="date"
+                            <label for="date" class="text-sm font-medium text-stone-600">end_date</label>
+                            <input type="date" id="end_date"
                                 class="mt-2 block w-full cursor-pointer rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                         </div>
 
@@ -102,12 +102,13 @@
         $(document).ready(function() {
             $('#searchForm').submit(function(e) {
                 e.preventDefault();
-                var search_input = $('#default-search').val();
+                var search_string = $('#search_string').val();
                 var token = $("meta[name='csrf-token']").attr("content");
                 var category = $("#category").val();
                 var start_date = $("#start_date").val();
                 var end_date = $("#end_date").val();
-                console.log(category);
+               
+                 console.log(search_string)
                 $.ajax({
                     type: 'GET',
                     url: '/search',
@@ -115,7 +116,7 @@
                         'XSRF-TOKEN': token
                     },
                     data: {
-                        search_input: search_input,
+                        search_string: search_string,
                         category: category,
                         start_date: start_date,
                         end_date: end_date

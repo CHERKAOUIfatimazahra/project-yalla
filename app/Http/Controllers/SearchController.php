@@ -13,22 +13,24 @@ class SearchController extends Controller
         $query = Event::query();
 
        
-        if ($request->has('category')) {
-            $query->where('category_id', $request->category);
-        }
-
-        if ($request->has('search_string')) {
-            $query->where('title', 'like', '%' . $request->search_string . '%');
-        }
-
-        if ($request->has('start_date') && $request->has('end_date')) {
+        if ($request->start_date && $request->end_date) {
             $query->whereBetween('start_datetime', [$request->start_date, $request->end_date]);
         }
         
+        if ($request->category) {
+            $query->where('category_id', $request->category);
+        }
+        
+        if ($request->search_string) {
+            $query->where('title', 'like', '%' . $request->search_string . '%');
+        }
+        
+
+        
         $events = $query->where('is_published', true)
                         ->orderBy('start_datetime', 'desc')
-                        ->paginate(6);
-
+                        ->get();
+        $events->load("categories");
         return response()->json([
             'events' => $events,
             'status' => $events->isNotEmpty(),
