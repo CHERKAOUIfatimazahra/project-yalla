@@ -16,18 +16,15 @@
                 <div class="p-4 md:p-12 text-center lg:text-left">
                     <!-- Image for mobile view-->
                     <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
-                        style="background-image: url('https://source.unsplash.com/MP0IUfwrn0A')"></div>
+                        style="background-image: url('{{ auth()->user()->image ? asset("images/" . auth()->user()->image) : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg' }}" alt="user photo')"></div>
 
                     <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ auth()->user()->name }}</h1>
                     <div
                         class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
-                    {{-- <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
-                        <svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20">
-                            <path
-                                d="M9 12H1v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6h-8v2H9v-2zm0-1H0V5c0-1.1.9-2 2-2h4V2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v6h-9V9H9v2zm3-8V2H8v1h4z" />
-                        </svg> What you do
-                    </p> --}}
+                    <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
+                        <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Profile</a>
+                        <a href="" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Change Password</a>
+                    </p>
                     <p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                         <svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20">
@@ -41,10 +38,10 @@
 
             <!--Img Col-->
             <div class="w-full lg:w-2/5">
-                <img src="{{ auth()->user()->image }}"
-                    class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
+                <img src="{{ auth()->user()->image ? asset("images/" . auth()->user()->image) : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg' }}" alt="user photo" 
+                class="rounded-none lg:rounded-lg shadow-2xl hidden lg:block">
             </div>
-
+            
         </div>
 
     </section>

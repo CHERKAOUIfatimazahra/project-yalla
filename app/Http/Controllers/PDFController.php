@@ -20,8 +20,8 @@ class PDFController extends Controller
         $user = auth()->user();
         $reservation = Reservation::findOrFail($reservationId);
 
-        $data["email"] = "cherkaoui.fatimazahra97@gmail.com";
-        // $data["email"] = $user->email;
+        // $data["email"] = "cherkaoui.fatimazahra97@gmail.com";
+        $data["email"] = $user->email;
         $data["title"] = "Ticket for your reservation";
         $data["body"] = "This is Demo";
     

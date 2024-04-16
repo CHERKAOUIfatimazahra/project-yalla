@@ -34,7 +34,6 @@ use Illuminate\Support\Facades\Route;
     Route::get('/find-event', [HomeController::class,'findEvent']);
     Route::get('/filter',[SearchController::class,'index']);
     Route::get('/search', [SearchController::class, 'search'])->name('search');
-    // Route::get('/search/{ids}', [SearchController::class, 'filterByCategory']);
 
     // Contact page
     Route::view('/contact', 'contact');
@@ -76,7 +75,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 });
 
 Route::group(['middleware' => ['auth', 'role:organizer']], function() {
-    
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
     Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');

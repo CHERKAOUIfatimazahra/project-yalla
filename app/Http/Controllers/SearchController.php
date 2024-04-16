@@ -27,14 +27,12 @@ class SearchController extends Controller
             });
         }
         
-        
         $events = $query->where('is_published', true)
                         ->orderBy('start_datetime', 'desc')
                         ->get();
 
         $events->load("categories");
 
-        
         return response()->json([
             'events' => $events,
             'status' => $events->isNotEmpty(),

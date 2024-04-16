@@ -233,16 +233,15 @@
         $.ajax({
             url: `/search?category=${categoryId}`,
             method: 'GET',
-            
-            processData: false,
-            contentType: false,
+        
             success: function(response) {
-                console.log(response);
                 if (response.events && response.events.length > 0) {
                     var eventsHtml = '';
                     response.events.forEach(function(event) {
-                        eventsHtml += '<div class="m-3">';
-                        eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event.image + '" class="w-full h-56 rounded-lg" />';
+                        eventsHtml += '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">'
+                            
+                        eventsHtml += ' <div class="flex items-center justify-between px-4 mt-2">';
+                        eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event.image + '" class="w-full h-56 rounded-lg" /> </div> ';
                         eventsHtml += '<div class="px-4 my-6 text-center">';
                         eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
                         eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
