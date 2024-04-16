@@ -93,4 +93,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{reservationId}/payment', [PaymentController::class, 'payment'])->name('payment.process');
     Route::get('/payment/success', [PaymentController::class, 'payment_success'])->name('payment.success');
     Route::get('/payment/cancel', [PaymentController::class, 'payment_cancel'])->name('payment.cancel');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 });

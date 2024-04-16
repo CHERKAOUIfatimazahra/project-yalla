@@ -12,7 +12,7 @@
             <div id="profile"
                 class="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-white opacity-75 mx-6 lg:mx-0">
 
-
+                <x-alert />
                 <div class="p-4 md:p-12 text-center lg:text-left">
                     <!-- Image for mobile view-->
                     <div class="block lg:hidden rounded-full shadow-xl mx-auto -mt-16 h-48 w-48 bg-cover bg-center"
@@ -21,10 +21,9 @@
                     <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ auth()->user()->name }}</h1>
                     <div
                         class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
-                    <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
-                        <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Profile</a>
-                        <a href="" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-2">Change Password</a>
-                    </p>
+                        <p class="pt-4 text-base font-bold flex items-center justify-center lg:justify-start">
+                            <a href="{{ route('users.edit', auth()->user()) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Profile</a>
+                        </p>
                     <p class="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                         <svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20">
