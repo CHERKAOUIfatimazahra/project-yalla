@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrganizerEventController;
 use App\Http\Controllers\PageCategoryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
     // Home page
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/single_page/{event}', [HomeController::class, 'eventShow'])->name('events.eventShow');
-    Route::get('/organizer_page', [HomeController::class, ''])->name('');
+    Route::get('/organizer_page/{userId}', [OrganizerEventController::class, 'index'])->name('organizer.page');
     
     // find event pages
     Route::get('/find-event', [HomeController::class,'findEvent']);

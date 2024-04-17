@@ -1,3 +1,4 @@
+@props(['event'])
 <div
     class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">
     <div class="flex items-center justify-between px-4 mt-2">
@@ -15,9 +16,8 @@
     </div>
 
     <div class="flex items-center">
-        <a href="" class="flex items-center">
-            <img src="{{ asset("/images/{$event->user->image}") }}" class="h-10 w-10 rounded-full mr-2"
-                alt="User Avatar">
+        <a href="{{ route('organizer.page', ['userId' => $event->user->id]) }}" class="flex items-center">
+            <img src="{{ asset("/images/{$event->user->image}") }}" class="h-10 w-10 rounded-full mr-2" alt="User Avatar">
             <span class="text-gray-700">{{ $event->user->name }}</span>
         </a>
     </div>
