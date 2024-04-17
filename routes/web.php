@@ -73,7 +73,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::resource('categories',CategoryController::class);
     // Route::get('events.index',[EventController::class, 'index']);
     Route::get('/statistique',[StaticController::class, 'statisTotal']);
-    Route::put("/changePublishedStatus/{event}",[EventController::class,"publicEvent"])->name("changePublishedStatus");  
+    Route::put("/changePublishedStatus/{event}",[EventController::class,"publicEvent"])->name("changePublishedStatus");
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');  
 });
 
 Route::group(['middleware' => ['auth', 'role:organizer']], function() {

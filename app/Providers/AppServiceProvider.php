@@ -7,6 +7,8 @@ use App\Repositories\AuthRepository;
 use App\Repositories\AuthRepositoryInterface;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CategoryRepositoryInterface;
+use App\Repositories\UserRepository;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -20,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(AuthRepositoryInterface::class, AuthRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
-
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
