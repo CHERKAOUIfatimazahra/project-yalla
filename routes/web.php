@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
     // Home page
     Route::get('/', [HomeController::class, 'index']);
     Route::get('/single_page/{event}', [HomeController::class, 'eventShow'])->name('events.eventShow');
+    Route::get('/organizer_page', [HomeController::class, ''])->name('');
     
     // find event pages
     Route::get('/find-event', [HomeController::class,'findEvent']);

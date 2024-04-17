@@ -87,8 +87,14 @@
             </button>
         </div>
     </section>
-
     <section class="bg-gray-100 py-6 p-20">
+        <h1 class="text-center text-3xl font-bold m-3">Popular Events</h1>
+
+        <div class="m-3">
+            <x-carts-carousel :popularEvents="$popularEvents"></x-carts-carousel>
+        </div>
+    </section>
+    <section class="bg-white-100 py-6 p-20">
         <div class="container relative z-40 mx-auto mt-12">
             <div class="flex flex-w justify-center mx-auto lg:w-full md:w-5/6 xl:shadow-small-blue">
 
@@ -184,94 +190,113 @@
         </div>
     </section>
 
-   {{-- section for filter and events cards --}}
-<section>
-    {{-- start filter --}}
-    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
-        {{-- Loop through categories and create a button for each --}}
-        @foreach ($categories as $category)
-            <form id="filterForm{{ $category->id }}">
-                <button type="button" onclick="filterEvents({{ $category->id }})" class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                    {{ $category->name }}
-                </button>
-            </form>
-        @endforeach
-    </div>
-    
-    <div class="flex justify-center">
-        <x-alert />
-    </div>
+    {{-- section for filter and events cards --}}
+    <section>
+        {{-- start filter --}}
+        <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
+            {{-- Loop through categories and create a button for each --}}
+            @foreach ($categories as $category)
+                <form id="filterForm{{ $category->id }}">
+                    <button type="button" onclick="filterEvents({{ $category->id }})"
+                        class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
+                        {{ $category->name }}
+                    </button>
+                </form>
+            @endforeach
+        </div>
 
-    <div id="eventsContainer">
-        <h1 class="text-center text-3xl font-bold">Find your events</h1>
-        <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
-            <div class="flex flex-wrap justify-center" id="eventResults">
-                {{-- Events will be displayed here --}}
-                @foreach ($publishedEvents as $event)
-                    <div class="m-3">
-                        <x-events-cards :event="$event"></x-events-cards>
-                    </div>
-                @endforeach
+        <div class="flex justify-center">
+            <x-alert />
+        </div>
+
+        <div id="eventsContainer">
+            <h1 class="text-center text-3xl font-bold">Find your events</h1>
+            <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
+                <div class="flex flex-wrap justify-center" id="eventResults">
+                    @foreach ($publishedEvents as $event)
+                        <div class="m-3">
+                            <x-events-cards :event="$event"></x-events-cards>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="text-center m-3">
+                <a href="/find-event">
+                    <button
+                        class="px-6 py-2 mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">
+                        SHOW MORE EVENTS
+                    </button>
+                </a>
             </div>
         </div>
-        <div class="text-center">
-            <a href="/find-event">
-                <button class="px-6 py-2 mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">
-                    SHOW MORE EVENTS
-                </button>
-            </a>
-        </div>
-    </div>
-    
-</section>
-{{-- end section --}}
+    </section>
+    {{-- end section cart events--}}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    function filterEvents(categoryId) {
-         
-        $.ajax({
-            url: `/search?category=${categoryId}`,
-            method: 'GET',
-        
-            success: function(response) {
-                if (response.events && response.events.length > 0) {
-                    var eventsHtml = '';
-                    response.events.forEach(function(event) {
-                        eventsHtml += '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">'
-                            
-                        eventsHtml += ' <div class="flex items-center justify-between px-4 mt-2">';
-                        eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event.image + '" class="w-full h-56 rounded-lg" /> </div> ';
-                        eventsHtml += '<div class="px-4 my-6 text-center">';
-                        eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
-                        eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<div class="flex justify-between items-center ">';
-                        eventsHtml += '<span>' + event.start_datetime + '</span>';
-                        eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event.categories.name + '</span>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<div class="mt-4 flex items-center flex-wrap gap-4">';
-                        eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event.price + '</h3>';
-                        eventsHtml += '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' + event.id + '">';
-                        eventsHtml += '@csrf';
-                        eventsHtml += '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Reserve now</button>';
-                        eventsHtml += '</form>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<a type="button" href="{{ route('events.eventShow', ['event' => 'event->id']) }}/' + event.id + '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
-                        eventsHtml += '</div>';
-                    });
-                    $('#eventResults').html(eventsHtml);
-                } else {
-                    $('#eventResults').html('<p>No events found</p>');
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function filterEvents(categoryId) {
+
+            $.ajax({
+                url: `/search?category=${categoryId}`,
+                method: 'GET',
+
+                success: function(response) {
+                    if (response.events && response.events.length > 0) {
+                        var eventsHtml = '';
+                        response.events.forEach(function(event) {
+                            eventsHtml +=
+                                '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">'
+
+                            eventsHtml += ' <div class="flex items-center justify-between px-4 mt-2">';
+                            eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event
+                                .image + '" class="w-full h-56 rounded-lg" /> </div> ';
+                            eventsHtml += '<div class="px-4 my-6 text-center">';
+                            eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(
+                                0, 20) + '...</h3>';
+                            eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description
+                                .substring(0, 80) + '...</p>';
+                            eventsHtml += '</div>';
+                            eventsHtml += '<div class="flex justify-between items-center ">';
+                            eventsHtml += '<span>' + event.start_datetime + '</span>';
+                            eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event
+                                .categories.name + '</span>';
+                            eventsHtml += '</div>';
+                            eventsHtml += '<div class="mt-4 flex items-center flex-wrap gap-4">';
+                            eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event
+                                .price + '</h3>';
+                            eventsHtml +=
+                                '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' +
+                                event.id + '">';
+                            eventsHtml += '@csrf';
+                            eventsHtml +=
+                                '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Reserve now</button>';
+                            eventsHtml += '</form>';
+                            eventsHtml += '</div>';
+                            eventsHtml +=
+                                '<a type="button" href="{{ route('events.eventShow', ['event' => 'event->id']) }}/' +
+                                event.id +
+                                '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
+                            eventsHtml += '</div>';
+                        });
+                        $('#eventResults').html(eventsHtml);
+                    } else {
+                        $('#eventResults').html('<p>No events found</p>');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-</script>
-
+            });
+        }
+    </script>
+    {{-- events of the week --}}
+    <section class="bg-gray-100 py-6 p-20">
+        <h1 class="text-center text-3xl font-bold m-3">Events of the week</h1>
+        <div class="m-3">
+            <x-carts-carousel :popularEvents="$popularEvents"></x-carts-carousel>
+        </div>
+    </section>
+    {{-- end events of the week --}}
     <section class="relative py-32 lg:py-36 bg-white">
         <div class="mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5 flex flex-col lg:flex-row gap-10 lg:gap-12">
             <div class="absolute w-full lg:w-1/2 inset-y-0 lg:right-0 hidden lg:block">

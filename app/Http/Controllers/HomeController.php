@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -14,8 +15,15 @@ class HomeController extends Controller
         $user = User::all();
         $categories = Category::all();
         $publishedEvents = Event::where('is_published', 1)->latest()->paginate(6);
-
-        return view('home', compact('publishedEvents','user','categories'));
+        $popularEvents = Event::join('reservations', 'events.id', '=', 'reservations.event_id')
+                                ->where('events.is_published', 1)   
+                                ->select('events.*', DB::raw('COUNT(reservations.id) as reservations_count'))
+                                ->groupBy('events.id')
+                                ->orderByDesc('reservations_count')
+                                ->limit(10)
+                                ->get();
+        // $eventOfWeek = ;
+        return view('home', compact('publishedEvents','user','categories','popularEvents'));
     }
     public function eventShow(Event $event)
     {
@@ -28,5 +36,5 @@ class HomeController extends Controller
 
         return view('find-event', compact('publishedEvents','categories'));
     }
-
+    
 }
