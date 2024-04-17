@@ -87,13 +87,14 @@
             </button>
         </div>
     </section>
+    <!-- Popular events section -->
     <section class="bg-gray-100 py-6 p-20">
         <h1 class="text-center text-3xl font-bold m-3">Popular Events</h1>
-
         <div class="m-3">
             <x-carts-carousel :popularEvents="$popularEvents"></x-carts-carousel>
         </div>
     </section>
+    {{-- end Popular enets section --}}
     <section class="bg-white-100 py-6 p-20">
         <div class="container relative z-40 mx-auto mt-12">
             <div class="flex flex-w justify-center mx-auto lg:w-full md:w-5/6 xl:shadow-small-blue">
@@ -289,11 +290,11 @@
             });
         }
     </script>
-    {{-- events of the week --}}
+    <!-- Events of the week section -->
     <section class="bg-gray-100 py-6 p-20">
         <h1 class="text-center text-3xl font-bold m-3">Events of the week</h1>
         <div class="m-3">
-            <x-carts-carousel :popularEvents="$popularEvents"></x-carts-carousel>
+            <x-carts-week :eventsOfWeek="$eventsOfWeek"></x-carts-week>
         </div>
     </section>
     {{-- end events of the week --}}

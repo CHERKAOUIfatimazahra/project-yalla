@@ -1,5 +1,5 @@
 <section class="bg-gray-100 py-6 p-20">
-    <div x-data="swipeCards()" x-init="let isDown = false;
+    <div x-data="swipeCardsWeek()" x-init="let isDown = false;
         let startX;
         let scrollLeft;
         $el.addEventListener('mousedown', (e) => {
@@ -60,10 +60,10 @@
 </section>
 
 <script>
-    function swipeCards() {
+    function swipeCardsWeek() {
         return {
             cards: [
-                @foreach ($popularEvents as $event)
+                @foreach ($eventsOfWeek as $event)
                     {
                         id: {{ $event->id }},
                         image: '{{ asset("uploads/events/$event->image") }}',
@@ -83,5 +83,3 @@
         };
     }
 </script>
-
-

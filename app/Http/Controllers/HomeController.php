@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,8 +23,18 @@ class HomeController extends Controller
                                 ->orderByDesc('reservations_count')
                                 ->limit(10)
                                 ->get();
-        // $eventOfWeek = ;
-        return view('home', compact('publishedEvents','user','categories','popularEvents'));
+         
+        // Get the start and end dates of the current week
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        // Fetch events for the current week
+        $eventsOfWeek = Event::where('is_published', 1)
+                             ->whereBetween('start_datetime', [$startOfWeek, $endOfWeek])
+                             ->limit(10)
+                             ->get();
+        //   dd($eventsOfWeek);                   
+        return view('home', compact('publishedEvents','user','categories','popularEvents','eventsOfWeek'));
     }
     public function eventShow(Event $event)
     {
