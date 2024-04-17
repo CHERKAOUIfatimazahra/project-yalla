@@ -4,74 +4,66 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Models\Category;
+use App\Repositories\CategoryRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-   /**
-     * Display a listing of the resource.
-     */
+    protected $categoryRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index()
-    { 
-        $categories = category::latest()->paginate(5);
-        
-        return view('dashbord.categories.index',compact('categories'))
+    {
+        $categories = $this->categoryRepository->all();
+
+        return view('dashbord.categories.index', compact('categories'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
     }
- 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('dashbord.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCategoryRequest $request)
     {
-        $request->validated();
+        $data = $request->validated();
 
-        Category::create([
-            'name' => $request->name,
-        ]);
-         
+        $this->categoryRepository->create($data);
+
         return redirect()->route('categories.index')
-                        ->with('success','categories created successfully.');
+                        ->with('success', 'Category created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = $this->categoryRepository->find($id);
+
         return view('dashbord.categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, $id)
     {
-        $category->update([
-            'name' => $request->name,
-        ]);
-        
+        $category = $this->categoryRepository->find($id);
+        $data = $request->validated();
+
+        $this->categoryRepository->update($category, $data);
+
         return redirect()->route('categories.index')
-                        ->with('success','category updated successfully');
+                        ->with('success', 'Category updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-         
+        $category = $this->categoryRepository->find($id);
+
+        $this->categoryRepository->delete($category);
+
         return redirect()->route('categories.index')
-                        ->with('success','Category deleted successfully');
+                        ->with('success', 'Category deleted successfully');
     }
 }
