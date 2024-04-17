@@ -68,8 +68,7 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="is_published"
                                                             value="{{ 0 }}">
-                                                        <button class="px-2 rounded py-1 bg-red-500 white-text"> un
-                                                            published</button>
+                                                        <button class="px-2 rounded py-1 bg-red-500 text-white font-bold">Unpublished</button>
                                                     </form>
                                                 @else
                                                     <form method="post"
@@ -78,7 +77,7 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="is_published"
                                                             value="{{ 1 }}">
-                                                        <button class="px-2 rounded py-1 bg-green-500 white-text">published</button>
+                                                        <button class="px-2 rounded py-1 bg-green-500 text-white font-bold">Published</button>
                                                     </form>
                                                 @endif
                                             </td>
