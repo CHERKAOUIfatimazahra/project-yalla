@@ -34,7 +34,7 @@ class AuthController extends Controller
         if ($this->authRepository->login($credentials)) {
 
             $request->session()->regenerate();
-                return redirect('/profile');
+                return redirect('/');
         }
 
         return back()->withInput($request->only('email'));
