@@ -57,7 +57,7 @@ class EventController extends Controller
         'price' => $request->price,
         'tickets_available' => $request->tickets_available,
         'reservation_type' => $request->reservation_type,
-        'image' => $imageFileName,
+        'image' => $request->imageFileName,
         'user_id' => auth()->id(),
         'category_id' => $request->category,
     ]);

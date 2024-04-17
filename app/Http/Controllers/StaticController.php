@@ -33,8 +33,6 @@ class StaticController extends Controller
             $total_user_reservations += $event->reserve()->count();
         }
 
-        // $total_reservations = $organizer->reserve()->count();
-
         return view('dashbord.static-reservation', compact('total_events','total_user_reservations'));
     }
 }
