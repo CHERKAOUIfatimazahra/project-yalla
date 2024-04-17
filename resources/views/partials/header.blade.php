@@ -1,6 +1,6 @@
 <header class='shadow-sm py-3 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[60px]'>
     <div class='flex flex-wrap items-center justify-between lg:gap-y-4 gap-y-6 gap-x-4'>
-        <a href="/"><img src="images/yalla.png" alt="logo" class='w-22 h-10' />
+        <a href="/"><img src="../images/yalla.png" alt="logo" class='w-22 h-10' />
         </a>
 
         <div class='flex items-center max-sm:ml-auto lg:order-1'>

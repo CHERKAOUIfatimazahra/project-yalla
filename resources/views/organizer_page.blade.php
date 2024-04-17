@@ -4,7 +4,7 @@
     <section class="w-full overflow-hidden white:bg-gray-900">
         <div class="w-full mx-auto">
             <!-- User Cover IMAGE -->
-            <img src="images/events2.jpg"
+            <img src="../images/events1.jpg"
                 alt="User Cover" class="w-full xl:h-[20rem] lg:h-[22rem] md:h-[16rem] sm:h-[13rem] xs:h-[9.5rem]" />
 
             <!-- User Profile Image -->
@@ -33,5 +33,6 @@
             </div>
             {{ $userEvents->links() }}
         </div>
+
     </section>
 @endsection
