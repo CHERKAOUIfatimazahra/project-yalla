@@ -41,6 +41,7 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
 {
+    $imageFileName = null;
     if ($request->hasFile('image')) {
         $file = $request->file('image');
         $imageFileName = time() . '.' . $file->getClientOriginalExtension();
@@ -57,7 +58,7 @@ class EventController extends Controller
         'price' => $request->price,
         'tickets_available' => $request->tickets_available,
         'reservation_type' => $request->reservation_type,
-        'image' => $request->imageFileName,
+        'image' => $imageFileName,
         'user_id' => auth()->id(),
         'category_id' => $request->category,
     ]);

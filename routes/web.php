@@ -55,24 +55,22 @@ use Illuminate\Support\Facades\Route;
     Route::get('/educational', [PageCategoryController::class, 'educational']);
     Route::get('/gaming', [PageCategoryController::class, 'gaming']);
     
+Route::middleware('guest_user')->group(function () {
     // authentication
-    Route::middleware('guest_user')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login.index');
     Route::get('/register', [AuthController::class, 'create'])->name('register.index');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
-});
     // Password reset routes
     Route::get('/forgot-password', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
-
-
+});
+    
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::resource('users',UserController::class);
     Route::resource('categories',CategoryController::class);
-    // Route::get('events.index',[EventController::class, 'index']);
     Route::get('/statistique',[StaticController::class, 'statisTotal']);
     Route::put("/changePublishedStatus/{event}",[EventController::class,"publicEvent"])->name("changePublishedStatus");
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');  
@@ -82,7 +80,6 @@ Route::group(['middleware' => ['auth', 'role:organizer']], function() {
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
     Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
-    
 });
 
 Route::middleware('auth')->group(function () {
@@ -101,3 +98,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 });
+ 
