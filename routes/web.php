@@ -56,11 +56,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('/gaming', [PageCategoryController::class, 'gaming']);
     
     // authentication
+    Route::middleware('guest_user')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login.index');
     Route::get('/register', [AuthController::class, 'create'])->name('register.index');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
-
+});
     // Password reset routes
     Route::get('/forgot-password', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
