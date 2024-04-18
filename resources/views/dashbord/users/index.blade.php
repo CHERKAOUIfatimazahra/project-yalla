@@ -53,7 +53,7 @@
                         {{ $users->firstItem() }}-{{ $users->lastItem() }} of {{ $users->total() }}
                     </span>
                     <ul class="inline-flex items-stretch -space-x-px">
-                        {{ $users->links() }}
+                        {{ $users->links('pagination.custom-pagination') }}
                     </ul>
                 </nav>               
             </div>

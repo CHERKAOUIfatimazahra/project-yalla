@@ -113,7 +113,7 @@
                             {{ $events->firstItem() }}-{{ $events->lastItem() }} of {{ $events->total() }}
                         </span>
                         <ul class="inline-flex items-stretch -space-x-px">
-                            {{ $events->links() }}
+                            {{ $events->links('pagination.custom-pagination') }}
                         </ul>
                     </nav>
                 </div>

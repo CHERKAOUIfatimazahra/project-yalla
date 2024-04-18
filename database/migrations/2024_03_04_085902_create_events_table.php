@@ -27,6 +27,7 @@ return new class extends Migration
             $table->enum('reservation_type',['automatique', 'manuelle'])->default('automatique');
 
             $table->foreignId('user_id')->constrained('users');
+            // $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });

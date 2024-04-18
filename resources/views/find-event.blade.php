@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-        {{ $publishedEvents->links() }}
+        {{ $publishedEvents->links('pagination.custom-pagination') }}
     </section>
 @php
     $dateTime = new DateTime($event->end_datetime);
@@ -131,7 +131,11 @@
                         var disabledAttribute = (reserveText === 'Reserve end') ? 'disabled' : '';
                         eventsHtml += '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">';
                         eventsHtml += '<div class="flex items-center justify-between px-4 mt-2">';
-                        eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event.image + '" class="w-full h-56 rounded-lg" /> </div> ';
+                            if (event.image)
+                                eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event
+                                .image + '" class="w-full h-56 rounded-lg" /> </div> ';
+                            else eventsHtml +=
+                                '<img src="http://127.0.0.1:8000/images/yalla.png" class="w-full h-56 rounded-lg" /> </div> ';
                         eventsHtml += '<div class="px-4 my-6 text-center">';
                         eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
                         eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
@@ -144,12 +148,12 @@
                         eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event.price + '</h3>';
                         eventsHtml += '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' +
                                 event.id + '">';
-                            eventsHtml += '@csrf';
+                        eventsHtml += '@csrf';
                         eventsHtml += '<input type="hidden" name="_token" value="' + token + '">';
                         eventsHtml += '<button ' + disabledAttribute + ' class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">' + reserveText + '</button>';
                         eventsHtml += '</form>';
                         eventsHtml += '</div>';
-                        eventsHtml += '<a type="button" href="/events/' + event.id + '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
+                        eventsHtml += '<a type="button" href="http://127.0.0.1:8000/single_page/' + event.id + '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
                         eventsHtml += '</div>';
                     });
                     $('#placeSearchResult').html(eventsHtml);

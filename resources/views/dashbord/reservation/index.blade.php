@@ -68,7 +68,7 @@
                             {{ $reservations->total() }}
                         </span>
                         <ul class="inline-flex items-stretch -space-x-px">
-                            {{ $reservations->links() }}
+                            {{ $reservations->links('pagination.custom-pagination') }}
                         </ul>
                     </nav>
                 </div>
