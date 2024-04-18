@@ -37,7 +37,7 @@
                                     <form x-bind:action="card.reserve_route" method="post" x-show="card.end_datetime > currentDateTime">
                                         @csrf 
                                         <button type="submit" class="select-none rounded-lg bg-pink-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                            Reserve now
+                                            Book
                                         </button>
                                     </form>
                                     <button class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" x-show="!(card.end_datetime > currentDateTime)">
@@ -66,7 +66,7 @@
                 @foreach ($popularEvents as $event)
                     {
                         id: {{ $event->id }},
-                        image: '{{ asset("uploads/events/$event->image") }}',
+                        image: '{{ $event->image ? asset("/uploads/events/" .  $event->image  ) : '../images/yalla.png'}}',
                         title: '{{ $event->title }}',
                         description: '{{ $event->description }}',
                         price: {{ $event->price }},

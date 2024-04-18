@@ -93,8 +93,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/{userId}/reservation/{reservationId}', [TicketController::class, 'userReservations'])->name('user.reservation.details');
     Route::post('/generate-pdf/{userId}/{reservationId}', [PDFController::class, 'index'])->name('generate.pdf');
     Route::post('/download-pdf/{userId}/{reservationId}', [PDFController::class, 'download'])->name('download.pdf');
-    Route::post('/events/{reservationId}/payment', [PaymentController::class, 'payment'])->name('payment.process');
+    Route::match(['get', 'post'],'/events/{reservationId}/payment', [PaymentController::class, 'payment'])->name('payment.process');
     Route::get('/payment/success', [PaymentController::class, 'payment_success'])->name('payment.success');
+    Route::view('/success-page','success-page');
     Route::get('/payment/cancel', [PaymentController::class, 'payment_cancel'])->name('payment.cancel');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');

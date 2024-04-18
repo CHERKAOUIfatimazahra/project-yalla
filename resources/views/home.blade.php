@@ -195,14 +195,15 @@
     <section>
         {{-- start filter --}}
         <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
-            {{-- Loop through categories and create a button for each --}}
             @foreach ($categories as $category)
-                <form id="filterForm{{ $category->id }}">
-                    <button type="button" onclick="filterEvents({{ $category->id }})"
-                        class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
-                        {{ $category->name }}
-                    </button>
-                </form>
+                @if ($category->eventsCategory()->exists())
+                    <form id="filterForm{{ $category->id }}">
+                        <button type="button" onclick="filterEvents({{ $category->id }})"
+                            class="category-btn text-black-700 hover:text-white border border-purple-600 bg-white hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 transition-all">
+                            {{ $category->name }}
+                        </button>
+                    </form>
+                @endif
             @endforeach
         </div>
 
@@ -270,7 +271,7 @@
                                 event.id + '">';
                             eventsHtml += '@csrf';
                             eventsHtml +=
-                                '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Reserve now</button>';
+                                '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Book</button>';
                             eventsHtml += '</form>';
                             eventsHtml += '</div>';
                             eventsHtml +=

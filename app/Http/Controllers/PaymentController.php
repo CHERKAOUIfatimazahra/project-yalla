@@ -19,10 +19,6 @@ class PaymentController extends Controller
         if ($reservation->payment_status == 'paid') {
             return redirect()->back()->with('error', 'This reservation is already paid.');
         }
-        // if ($reservation->event->date < Carbon::now()) {
-        //     return redirect()->back()->with('error', 'You can not make payment for this reservation, because the event is already finished.');
-        // }
-        
         $totalAmount = $reservation->event->price;
         $totalAmount = number_format($totalAmount, 2, '.', '');
         $payment = Mollie::api()->payments->create([
@@ -45,7 +41,7 @@ class PaymentController extends Controller
     public function payment_success(Request $request)
     {
         $paymentId = session()->get('paymentId');
-        // dd($paymentId);
+            // dd($paymentId);
         $payment = Mollie::api()->payments->get($paymentId);
         $id = session()->get('reservationID');
         if ($payment->isPaid()) {
@@ -58,7 +54,7 @@ class PaymentController extends Controller
             session()->forget('paymentId');
             session()->forget('reservationID');
 
-            return redirect()->back()->with('success', 'Payment is success, your reservation is completed');
+            return view('/success-page')->with('success', 'your reservation is completed');
         } else {
             return redirect()->route('payment.cancel');
         }

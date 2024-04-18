@@ -54,8 +54,12 @@ class ReservationController extends Controller
 
         if ($event->reservation_type === 'automatique') {
             $reservation->status_reservation = 'approved';
+            $reservation->save();
+            return redirect()->route('payment.process', ['reservationId' => $reservation->id]);
         } else {
             $reservation->status_reservation = 'pending';
+            $reservation->save();
+            return redirect()->back()->with('success', 'Your reservation is pending. Please wait for organizer approval.');
         }
         
         //generate QR code 
@@ -69,9 +73,6 @@ class ReservationController extends Controller
 
         // Update reservation with QR code path
         // $reservation->qr_code_path = $qrCodePath;
-        $reservation->save();
-
-        return redirect()->back()->with('success', 'Reservation made successfully.');
     }
     public function updateStatus(Request $request, $id)
     {
