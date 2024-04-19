@@ -34,13 +34,13 @@
                                     <h3 class="text-xl text-[#333] font-bold flex-1" x-text="'$'+card.price"></h3>
                                 </div>
                                 <div class="flex gap-1">
-                                    <form x-bind:action="card.reserve_route" method="post" x-show="card.end_datetime > currentDateTime">
+                                    <form x-bind:action="card.reserve_route" method="post" x-show="card.end_datetime > currentDateTime && card.tickets_available > 0">
                                         @csrf 
                                         <button type="submit" class="select-none rounded-lg bg-pink-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                                             Book
                                         </button>
                                     </form>
-                                    <button class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" x-show="!(card.end_datetime > currentDateTime)">
+                                    <button class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" x-show="!(card.end_datetime > currentDateTime && card.tickets_available == 0)">
                                         Reserve end
                                     </button>
                                 </div>

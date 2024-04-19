@@ -32,7 +32,7 @@
             $currentDateTime = new DateTime();
         @endphp
 
-        @if ($dateTime > $currentDateTime)
+        @if ($dateTime > $currentDateTime && $event->tickets_available > 0)
             <form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => $event->id]) }}">
                 @csrf
                 <button

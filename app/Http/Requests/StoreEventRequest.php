@@ -33,7 +33,7 @@ class StoreEventRequest extends FormRequest
             'image' => 'nullable|image|mimes:png,jpeg,jpg,webp|max:2048',
             'reservation_type' => 'required',
             'user_id'=>'exists:users,id',
-            'category_id'=> 'exists:catagories,id'
+            'category_id'=> 'exists:categories,id'
         ];
     }
 }
