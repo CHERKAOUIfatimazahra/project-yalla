@@ -1,55 +1,48 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
-use App\Models\Reservation;
-use Mail;
-use Barryvdh\DomPDF\Facade\Pdf;
-    
+
+use App\Repositories\PDFRepositoryInterface;
+
 class PDFController extends Controller
 {
-    /**
-     * Generate PDF for a specific reservation and send it via email.
-     *
-     * @param int $userId
-     * @param int $reservationId
-     * @return response()
-     */
+    protected $pdfRepository;
+
+    public function __construct(PDFRepositoryInterface $pdfRepository)
+    {
+        $this->pdfRepository = $pdfRepository;
+    }
+
     public function index($userId, $reservationId)
     {
-        $user = auth()->user();
-        $reservation = Reservation::findOrFail($reservationId);
+        $user = $this->pdfRepository->getUserById($userId);
+        $reservation = $this->pdfRepository->getReservationById($reservationId);
 
-        // $data["email"] = "cherkaoui.fatimazahra97@gmail.com";
-        $data["email"] = $user->email;
-        $data["title"] = "Ticket for your reservation";
-        $data["body"] = "This is Demo";
-    
-        // Pass $reservation to the view
-        $pdf = PDF::loadView('emails.myTestMail', ['reservation' => $reservation, 'data' => $data]);
-    
-        Mail::send('emails.myTestMail', ['reservation' => $reservation, 'data' => $data], function($message) use ($data, $pdf) {
-            $message->to($data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
-        });
-            return redirect()->back()->with('success', 'Mail sent successfully');
-        
+        $data = [
+            "email" => "cherkaoui.fatimazahra97@gmail.com",
+            // 'email' => $user->email,
+            'title' => 'Ticket for your reservation',
+            'body' => 'This is Demo',
+        ];
+
+        $pdfData = ['reservation' => $reservation, 'data' => $data];
+
+        $this->pdfRepository->sendReservationPDF($data['email'], $data['title'], $data['body'], $pdfData);
+
+        return redirect()->back()->with('success', 'Mail sent successfully');
     }
+
     public function download($userId, $reservationId)
     {
-        $user = auth()->user();
-        $reservation = Reservation::findOrFail($reservationId);
+        $reservation = $this->pdfRepository->getReservationById($reservationId);
 
-        $data["title"] = "Ticket for your reservation";
-        $data["body"] = "This is Demo";
+        $data = [
+            'title' => 'Ticket for your reservation',
+            'body' => 'This is Demo',
+        ];
 
-        $pdf = PDF::loadView('emails.myTestMail', ['reservation' => $reservation, 'data' => $data]);
-        $pdf->setPaper('a4', 'landscape');
-        // Download the PDF file
-        $pdf->download('ticket.pdf');
+        $pdfData = ['reservation' => $reservation, 'data' => $data];
 
-        return $pdf->download('ticket.pdf');
-
+        return $this->pdfRepository->downloadReservationPDF($data['title'], $data['body'], $pdfData);
     }
 }
