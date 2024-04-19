@@ -2,34 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
-use App\Models\Reservation;
+use App\Repositories\TicketRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+    protected $ticketRepository;
+
+    public function __construct(TicketRepositoryInterface $ticketRepository)
+    {
+        $this->ticketRepository = $ticketRepository;
+    }
+
     public function showReservations($userId)
     {
-        $user = auth()->user();
-        $reservations = Reservation::where('user_id', $userId)
-                                ->latest()
-                                ->paginate(10);
+        $reservations = $this->ticketRepository->getUserReservations($userId);
 
         return view('dashbord.reservation.reservations', compact('reservations'))
                     ->with('i', (request()->input('page', 1) - 1) * 10);
     }
     
     public function userReservations($userId, $reservationId)
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
+        $reservation = $this->ticketRepository->getReservationById($reservationId);
 
-    $reservation = Reservation::findOrFail($reservationId);
+        if ($user->id !== $reservation->user_id) {
+            abort(403, 'Unauthorized');
+        }
 
-    if ($user->id !== $reservation->user_id) {
-        abort(403, 'Unauthorized');
+        return view('dashbord.reservation.tickets_reservations', compact('reservation', 'userId'));
     }
-
-    return view('dashbord.reservation.tickets_reservations', compact('reservation', 'userId'));
-}
-
 }
