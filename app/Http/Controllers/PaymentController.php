@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
-use Carbon\Carbon;
+use App\Repositories\PaymentRepositoryInterface;
 use Illuminate\Http\Request;
-use Mollie\Laravel\Facades\Mollie;
 
 class PaymentController extends Controller
 {
+    protected $paymentRepository;
+
+    public function __construct(PaymentRepositoryInterface $paymentRepository)
+    {
+        $this->paymentRepository = $paymentRepository;
+    }
+
     public function payment($id)
     {
         $reservation = Reservation::find($id);
@@ -21,40 +27,27 @@ class PaymentController extends Controller
         }
         $totalAmount = $reservation->event->price;
         $totalAmount = number_format($totalAmount, 2, '.', '');
-        $payment = Mollie::api()->payments->create([
-            "amount" => [
-                "currency" => "USD",
-                "value" => $totalAmount,
-            ],
-            "description" => "product_name",
-            "redirectUrl" => route('payment.success'),
-        ]);
 
-        // dd($payment);
+        // create payment
+        $payment = $this->paymentRepository->createPayment($id, $totalAmount);
 
-        session()->put('paymentId', $payment->id);
-        session()->put('reservationID',$id);
-        // redirect customer to Mollie checkout page
+        // Redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
     }
 
     public function payment_success(Request $request)
     {
         $paymentId = session()->get('paymentId');
-            // dd($paymentId);
-        $payment = Mollie::api()->payments->get($paymentId);
+        $payment = $this->paymentRepository->getPayment($paymentId);
         $id = session()->get('reservationID');
         if ($payment->isPaid()) {
+            
+            $this->paymentRepository->updateReservationPaymentStatus($id);
 
-            $reservation = Reservation::find($id);
-
-            $reservation->payment_status = 'paid';
-            $reservation->save();
-// dd($reservation);
             session()->forget('paymentId');
             session()->forget('reservationID');
 
-            return view('/success-page')->with('success', 'your reservation is completed');
+            return view('/success-page')->with('success', 'Your reservation is completed');
         } else {
             return redirect()->route('payment.cancel');
         }
@@ -62,6 +55,6 @@ class PaymentController extends Controller
 
     public function payment_cancel()
     {
-        return redirect()->back()->with('error','Payment is cancelled.');
+        return redirect()->back()->with('error', 'Payment is cancelled.');
     }
 }
