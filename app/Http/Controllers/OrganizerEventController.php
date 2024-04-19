@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-
+use App\Repositories\OrganizerEventRepositoryInterface;
 
 class OrganizerEventController extends Controller
 {
+    protected $organizerEventRepository;
+
+    public function __construct(OrganizerEventRepositoryInterface $organizerEventRepository)
+    {
+        $this->organizerEventRepository = $organizerEventRepository;
+    }
+
     public function index($userId)
     {
-        // Fetch the user based on the provided user ID
-        $user = User::findOrFail($userId);
-        
-        // Fetch events associated with the user, ensuring they are published
-        $userEvents = $user->events()
-                           ->where('is_published', 1)
-                           ->latest()
-                           ->paginate(6);
+        $user = $this->organizerEventRepository->getUserById($userId);
+        $userEvents = $this->organizerEventRepository->getPublishedEventsByUser($userId);
 
         return view('organizer_page', compact('userEvents', 'user'));
     }
