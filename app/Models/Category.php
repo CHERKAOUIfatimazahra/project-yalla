@@ -9,7 +9,10 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 
+        'name',
+        'description',
+        'icon',
+        'image',
     ];
     public function eventsCategory()
     {

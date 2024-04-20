@@ -22,7 +22,10 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:categories,name'
+            'name' => 'nullable|unique:categories,name,',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ];
     }
 }

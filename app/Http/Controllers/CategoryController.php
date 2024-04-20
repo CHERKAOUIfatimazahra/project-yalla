@@ -33,12 +33,29 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
 
+        $imageFileName = null;
+        $iconFileName = null;
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imageFileName = time() . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads/events/';
+            $file->move($path, $imageFileName);
+        }
+
+        if ($request->hasFile('icon')) {
+            $file = $request->file('icon');
+            $iconFileName = time() . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads/events/';
+            $file->move($path, $iconFileName);
+        }
+
+
         $this->categoryRepository->create($data);
 
         return redirect()->route('categories.index')
                         ->with('success', 'Category created successfully.');
     }
-
     public function edit($id)
     {
         $category = $this->categoryRepository->find($id);
@@ -50,6 +67,16 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->find($id);
         $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images');
+            $data['image'] = $imagePath;
+        }
+
+        if ($request->hasFile('icon')) {
+            $iconPath = $request->file('icon')->store('icons');
+            $data['icon'] = $iconPath;
+        }
 
         $this->categoryRepository->update($category, $data);
 
