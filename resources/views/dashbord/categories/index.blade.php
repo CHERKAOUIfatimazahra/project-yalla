@@ -7,20 +7,7 @@
             <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div class="flex justify-center">
-                        @if ($message = Session::get('success'))
-                            <div
-                                class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                                <strong class="font-bold">Success!</strong>
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
-                        @if ($message = Session::get('error'))
-                            <div
-                                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative w-full sm:w-1/2 lg:w-1/3">
-                                <strong class="font-bold">Error!</strong>
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
+                        <x-alert />
                     </div>
                     <div class="w-full md:w-1/2">
                         <!-- Search Form (if needed) -->
@@ -39,6 +26,8 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Name</th>
+                                <th scope="col" class="px-4 py-3">Image</th>
+                                <th scope="col" class="px-4 py-3">Icon</th>
                                 <th scope="col" class="px-4 py-3">Actions</th>
                             </tr>
                         </thead>
@@ -47,13 +36,19 @@
                             <tr class="border-b">
                                 <td class="px-4 py-3">{{ $category->name }}</td>
                                 <td class="px-4 py-3">
+                                    <img src="{{ asset('uploads/events/' . $category->image )}}" alt="{{ $category->name }} Image" class="h-12 w-12">
+                                </td>
+                                <td class="px-4 py-3">
+                                    <img src="{{ asset('uploads/events/' . $category->icon) }}" alt="{{ $category->name }} Icon" class="h-12 w-12">
+                                </td>
+                                <td class="px-4 py-3">
                                     <a href="{{ route('categories.edit', $category->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
+                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this category?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                     </form>
-                                </td>
+                                </td>                                
                             </tr>
                             @endforeach
                         </tbody>

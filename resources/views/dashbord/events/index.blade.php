@@ -91,7 +91,7 @@
                                                 <a href="{{ route('events.edit', $event->id) }}"
                                                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                                 <form action="{{ route('events.destroy', $event->id) }}" method="POST"
-                                                    class="inline">
+                                                    class="inline" onsubmit="return confirm('Are you sure you want to delete this event ?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
