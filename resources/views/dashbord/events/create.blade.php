@@ -1,7 +1,7 @@
 @extends('layout.add')
 
 @section('content')
-    <section class="bg-white" >
+    <section class="bg-white">
         <div class="py-4 mx-auto max-w-2xl lg:py-16">
             <div class="p-6">
                 <div class="row">
@@ -28,8 +28,7 @@
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                         <textarea name="description" id="description" rows="8"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Your description here" required>{{ old('description') }}</textarea>
@@ -78,11 +77,14 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="reservation_type" class="block mb-2 text-sm font-medium text-gray-900">Reservation Type</label>
+                        <label for="reservation_type" class="block mb-2 text-sm font-medium text-gray-900">Reservation
+                            Type</label>
                         <select name="reservation_type" id="reservation_type"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                            <option value="automatique" {{ old('reservation_type') === 'automatique' ? 'selected' : '' }}>Automatique</option>
-                            <option value="manuelle" {{ old('reservation_type') === 'manuelle' ? 'selected' : '' }}>Manuelle</option>
+                            <option value="automatique" {{ old('reservation_type') === 'automatique' ? 'selected' : '' }}>
+                                Automatique</option>
+                            <option value="manuelle" {{ old('reservation_type') === 'manuelle' ? 'selected' : '' }}>
+                                Manuelle</option>
                         </select>
                         @error('reservation_type')
                             <span class="text-red-500">{{ $message }}</span>
@@ -98,8 +100,8 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="tickets_available"
-                            class="block mb-2 text-sm font-medium text-gray-900">Tickets Available</label>
+                        <label for="tickets_available" class="block mb-2 text-sm font-medium text-gray-900">Tickets
+                            Available</label>
                         <input type="number" name="tickets_available" id="tickets_available"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             value="{{ old('tickets_available') }}" min="0" required>
@@ -111,8 +113,10 @@
                         <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
                         <select name="category_id" id="category"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category') == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                         @error('category')
@@ -135,5 +139,4 @@
             </form>
         </div>
     </section>
-
 @endsection

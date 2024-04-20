@@ -78,7 +78,7 @@
                 </form>
             </div>
         </div>
-        <div >
+        <div>
             <h1 class="text-center text-3xl font-bold">Find your events</h1>
             <div class="relative flex justify-center overflow-hidden py-6 sm:py-12">
                 <div id="placeSearchResult" class="flex flex-wrap justify-center">
@@ -92,84 +92,114 @@
         </div>
         {{ $publishedEvents->links('pagination.custom-pagination') }}
     </section>
-@php
-    $dateTime = new DateTime($event->end_datetime);
-    $currentDateTime = new DateTime();
-    $reserveText = ($dateTime > $currentDateTime) ? 'Reserve now' : 'Reserve end';
-@endphp
+    @php
+        $dateTime = new DateTime($event->end_datetime);
+        $currentDateTime = new DateTime();
+        $reserveText = $dateTime > $currentDateTime ? 'Reserve now' : 'Reserve end';
+    @endphp
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <script>
         $(document).ready(function() {
-    $('#searchForm').submit(function(e) {
-        e.preventDefault();
-        var search_string = $('#search_string').val();
-        var token = $("meta[name='csrf-token']").attr("content");
-        var category = $("#category").val();
-        var start_date = $("#start_date").val();
-        var end_date = $("#end_date").val();
+            $('#searchForm').submit(function(e) {
+                e.preventDefault();
+                var search_string = $('#search_string').val();
+                var token = $("meta[name='csrf-token']").attr("content");
+                var category = $("#category").val();
+                var start_date = $("#start_date").val();
+                var end_date = $("#end_date").val();
 
-        $.ajax({
-            type: 'GET',
-            url: '/search',
-            headers: {
-                'XSRF-TOKEN': token
-            },
-            data: {
-                search_string: search_string,
-                category: category,
-                start_date: start_date,
-                end_date: end_date
-            },
-            success: function(response) {
-                if (response.events && response.events.length > 0) {
-                    var eventsHtml = '';
-                    response.events.forEach(function(event) {
-                        var reserveText = (new Date(event.end_datetime) > new Date()) ? 'Reserve now' : 'Reserve end';
-                        var disabledAttribute = (reserveText === 'Reserve end') ? 'disabled' : '';
-                        eventsHtml += '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">';
-                        eventsHtml += '<div class="flex items-center justify-between px-4 mt-2">';
-                            if (event.image)
-                                eventsHtml += '<img src="http://127.0.0.1:8000/uploads/events/' + event
-                                .image + '" class="w-full h-56 rounded-lg" /> </div> ';
-                            else eventsHtml +=
-                                '<img src="http://127.0.0.1:8000/images/yalla.png" class="w-full h-56 rounded-lg" /> </div> ';
-                        eventsHtml += '<div class="px-4 my-6 text-center">';
-                        eventsHtml += '<h3 class="text-lg font-semibold">' + event.title.substring(0, 20) + '...</h3>';
-                        eventsHtml += '<p class="mt-2 text-sm text-gray-400">' + event.description.substring(0, 80) + '...</p>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<div class="flex justify-between items-center ">';
-                        eventsHtml += '<span>' + event.start_datetime + '</span>';
-                        eventsHtml += '<span class="px-2 py-1 border rounded-sm">' + event.categories.name + '</span>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<div class="mt-4 flex items-center flex-wrap gap-4">';
-                        eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event.price + '</h3>';
-                        eventsHtml += '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' +
-                                event.id + '">';
-                        eventsHtml += '@csrf';
-                        eventsHtml += '<input type="hidden" name="_token" value="' + token + '">';
-                        eventsHtml += '<button ' + disabledAttribute + ' class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">' + reserveText + '</button>';
-                        eventsHtml += '</form>';
-                        eventsHtml += '</div>';
-                        eventsHtml += '<a type="button" href="http://127.0.0.1:8000/single_page/' + event.id + '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
-                        eventsHtml += '</div>';
-                    });
-                    $('#placeSearchResult').html(eventsHtml);
-                } else {
-                    $('#placeSearchResult').html('<p>No events found</p>');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
+                $.ajax({
+                    type: 'GET',
+                    url: '/search',
+                    headers: {
+                        'XSRF-TOKEN': token
+                    },
+                    data: {
+                        search_string: search_string,
+                        category: category,
+                        start_date: start_date,
+                        end_date: end_date
+                    },
+                    success: function(response) {
+                        if (response.events && response.events.length > 0) {
+                            var eventsHtml = '';
+                            response.events.forEach(function(event) {
+                                eventsHtml +=
+                                    '<div class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">';
+                                eventsHtml +=
+                                    '<div class="flex items-center justify-between px-4 mt-2">';
+                                if (event.image)
+                                    eventsHtml +=
+                                    '<img src="http://127.0.0.1:8000/uploads/events/' +
+                                    event.image +
+                                    '" class="w-full h-56 rounded-lg" />';
+                                else
+                                    eventsHtml +=
+                                    '<img src="http://127.0.0.1:8000/images/yalla.png" class="w-full h-56 rounded-lg" />';
+                                eventsHtml += '</div>';
+                                eventsHtml +=
+                                    '<div class="px-4 my-6 text-center">';
+                                eventsHtml +=
+                                    '<h3 class="text-lg font-semibold">' +
+                                    event.title.substring(0, 20) +
+                                    '...</h3>';
+                                eventsHtml +=
+                                    '<p class="mt-2 text-sm text-gray-400">' +
+                                    event.description.substring(0, 80) +
+                                    '...</p>';
+                                eventsHtml += '</div>';
+                                eventsHtml +=
+                                    '<div class="flex justify-between items-center ">';
+                                eventsHtml += '<span>' + event.start_datetime +
+                                    '</span>';
+                                eventsHtml +=
+                                    '<span class="px-2 py-1 border rounded-sm">' +
+                                    event.categories.name + '</span>';
+                                eventsHtml += '</div>';
+                                eventsHtml +=
+                                    '<div class="mt-4 flex items-center flex-wrap gap-4">';
+                                eventsHtml +=
+                                    '<h3 class="text-xl text-[#333] font-bold flex-1">£' +
+                                    event.price + '</h3>';
+
+                                // JavaScript date comparison
+                                var endDateTime = new Date(event.end_datetime);
+                                var currentDateTime = new Date();
+                                if (endDateTime > currentDateTime && event
+                                    .tickets_available > 0) {
+                                    eventsHtml +=
+                                        '<form method="post" class="flex gap-1" action="/events/' +
+                                        event.id +
+                                        '/reserve">';
+                                    eventsHtml += '@csrf';
+                                    eventsHtml +=
+                                        '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Book</button>';
+                                    eventsHtml += '</form>';
+                                    eventsHtml += '</div>';
+                                } else {
+                                    eventsHtml +=
+                                        '<button class="select-none rounded-lg bg-black py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Reservation Ended</button>';
+                                }
+                                eventsHtml +=
+                                    '<a type="button" href="/single_page/' + event.id +
+                                    '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
+                                eventsHtml += '</div>';
+                            });
+                            $('#placeSearchResult').html(eventsHtml);
+                        } else {
+                            $('#placeSearchResult').html('<p>No events found</p>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
         });
-    });
-});
-
-
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>

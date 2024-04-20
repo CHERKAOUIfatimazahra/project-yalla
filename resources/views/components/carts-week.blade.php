@@ -1,25 +1,25 @@
 <section class="bg-gray-100 py-6 p-20">
     <div x-data="swipeCardsWeek()" x-init="let isDown = false;
-        let startX;
-        let scrollLeft;
-        $el.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - $el.offsetLeft;
-            scrollLeft = $el.scrollLeft;
-        });
-        $el.addEventListener('mouseleave', () => {
-            isDown = false;
-        });
-        $el.addEventListener('mouseup', () => {
-            isDown = false;
-        });
-        $el.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - $el.offsetLeft;
-            const walk = (x - startX) * 1;
-            $el.scrollLeft = scrollLeft - walk;
-        });" class="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5"
+    let startX;
+    let scrollLeft;
+    $el.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - $el.offsetLeft;
+        scrollLeft = $el.scrollLeft;
+    });
+    $el.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+    $el.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+    $el.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - $el.offsetLeft;
+        const walk = (x - startX) * 1;
+        $el.scrollLeft = scrollLeft - walk;
+    });" class="overflow-x-scroll scrollbar-hide mb-4 relative px-0.5"
         style="overflow-y: hidden;">
         <div class="flex snap-x snap-mandatory gap-4" style="width: max-content;">
             <template x-for="card in cards" :key="card.id">
@@ -34,7 +34,7 @@
                                     <h3 class="text-xl text-[#333] font-bold flex-1" x-text="'$'+card.price"></h3>
                                 </div>
                                 <div class="flex gap-1">
-                                    @if("card.end_datetime > currentDateTime && card.tickets_available > 0")
+                                    @if ('card.end_datetime > currentDateTime && card.tickets_available > 0')
                                         <form x-bind:action="card.reserve_route" method="post">
                                             @csrf
                                             <button type="submit"
@@ -42,7 +42,6 @@
                                                 Book
                                             </button>
                                         </form>
-                                    
                                     @else
                                         <button
                                             class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -52,8 +51,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center">
-                                <a :href="card.show_organizer"
-                                    class="flex items-center">
+                                <a :href="card.show_organizer" class="flex items-center">
                                     <img :src="card.user.image" class="h-10 w-10 rounded-full mr-2" alt="User Avatar">
                                     <span class="text-gray-700" x-text="card.user.name"></span>
                                 </a>
@@ -99,5 +97,3 @@
         };
     }
 </script>
-
-

@@ -272,16 +272,16 @@
                             eventsHtml += '<h3 class="text-xl text-[#333] font-bold flex-1">£' + event
                                 .price + '</h3>';
                             eventsHtml +=
-                                '<form method="post" class="flex gap-1" action="{{ route('events.reserve', ['eventId' => 'event->id']) }}/' +
-                                event.id + '">';
+                                '<form method="post" class="flex gap-1" action="/events/' + event.id +
+                                '/reserve">';
                             eventsHtml += '@csrf';
                             eventsHtml +=
                                 '<button class="select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Book</button>';
                             eventsHtml += '</form>';
+
                             eventsHtml += '</div>';
                             eventsHtml +=
-                                '<a type="button" href="{{ route('events.eventShow', ['event' => 'event->id']) }}/' +
-                                event.id +
+                                '<a type="button" href="/single_page/' + event.id +
                                 '" class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">View</a>';
                             eventsHtml += '</div>';
                         });

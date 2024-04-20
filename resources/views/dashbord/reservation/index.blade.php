@@ -6,7 +6,8 @@
             <x-alert />
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
-                    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div
+                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         <div class="w-full md:w-1/2">
                             <!-- Search Form (if needed) -->
                         </div>
@@ -35,13 +36,17 @@
                                             <td class="px-4 py-3">{{ $reservation->place }}</td>
                                             <td class="px-4 py-3">
                                                 @if ($reservation->status_reservation == 'pending')
-                                                    <form method="POST" action="{{ route('reservations.updateStatus', $reservation->id) }}">
+                                                    <form method="POST"
+                                                        action="{{ route('reservations.updateStatus', $reservation->id) }}">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="flex">
-                                                            <input type="hidden" name="status_reservation" value="{{ $reservation->status_reservation }}">
-                                                            <button type="submit" name="new_status" value="approved" class="mr-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">Approved</button>
-                                                            <button type="submit" name="new_status" value="rejected" class="bg-red-100 hover:bg-red-200 px-4 py-2 rounded-md">Rejected</button>
+                                                            <input type="hidden" name="status_reservation"
+                                                                value="{{ $reservation->status_reservation }}">
+                                                            <button type="submit" name="new_status" value="approved"
+                                                                class="mr-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">Approved</button>
+                                                            <button type="submit" name="new_status" value="rejected"
+                                                                class="bg-red-100 hover:bg-red-200 px-4 py-2 rounded-md">Rejected</button>
                                                         </div>
                                                     </form>
                                                 @elseif ($reservation->status_reservation == 'approved')
@@ -57,7 +62,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 bg-white" aria-label="Table navigation">
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4 bg-white"
+                        aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500">
                             {{ $reservations->firstItem() }}-{{ $reservations->lastItem() }} of {{ $reservations->total() }}
                         </span>

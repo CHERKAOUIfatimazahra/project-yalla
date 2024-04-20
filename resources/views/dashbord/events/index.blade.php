@@ -8,7 +8,7 @@
                 <div class="bg-white shadow-md sm:rounded-lg overflow-hidden">
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                       
+
                         <x-alert />
                         <div class="w-full md:w-1/2">
                             <!-- Search Form (if needed) -->
@@ -45,7 +45,7 @@
                                     @endif
                                     <th></th>
                                     @if (auth()->user()->hasRole('organizer'))
-                                    <th scope="col" class="px-4 py-3">Actions</th>
+                                        <th scope="col" class="px-4 py-3">Actions</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -68,7 +68,8 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="is_published"
                                                             value="{{ 0 }}">
-                                                        <button class="px-2 rounded py-1 bg-red-500 text-white font-bold">Unpublished</button>
+                                                        <button
+                                                            class="px-2 rounded py-1 bg-red-500 text-white font-bold">Unpublished</button>
                                                     </form>
                                                 @else
                                                     <form method="post"
@@ -77,27 +78,29 @@
                                                         @method('PUT')
                                                         <input type="hidden" name="is_published"
                                                             value="{{ 1 }}">
-                                                        <button class="px-2 rounded py-1 bg-green-500 text-white font-bold">Published</button>
+                                                        <button
+                                                            class="px-2 rounded py-1 bg-green-500 text-white font-bold">Published</button>
                                                     </form>
                                                 @endif
                                             </td>
                                         @endif
                                         <td class="px-4 py-3">{{ $event->status }}</td>
                                         <td class="px-4 py-3">
-                                            
+
                                             @if (auth()->user()->hasRole('organizer'))
                                                 <a href="{{ route('events.show', $event->id) }}"
                                                     class="text-primary-600 hover:text-primary-900">View</a>
                                                 <a href="{{ route('events.edit', $event->id) }}"
                                                     class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                                 <form action="{{ route('events.destroy', $event->id) }}" method="POST"
-                                                    class="inline" onsubmit="return confirm('Are you sure you want to delete this event ?');">
+                                                    class="inline"
+                                                    onsubmit="return confirm('Are you sure you want to delete this event ?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="text-red-600 hover:text-red-900">Delete</button>
                                                 </form>
-                                           
+
                                                 <a href="{{ route('events.reservations.index', $event->id) }}"
                                                     class="text-green-600 hover:text-green-900">Reservation</a>
                                             @endif

@@ -45,31 +45,33 @@
                                                             Télécharger
                                                         </button>
                                                     </form>
-                                                    <td>
-                                                    <form
-                                                        action="{{ route('generate.pdf', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="text-primary-600 hover:text-primary-900">
-                                                            Envoyer par email
-                                                        </button>
-                                                    </form>
-                                                </td>
+                                            <td>
+                                                <form
+                                                    action="{{ route('generate.pdf', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="text-primary-600 hover:text-primary-900">
+                                                        Envoyer par email
+                                                    </button>
+                                                </form>
                                             </td>
-                                            
+                                            </td>
+
                                             <td class="px-4 py-3">
                                                 <a href="{{ route('user.reservation.details', ['userId' => auth()->user()->id, 'reservationId' => $reservation->id]) }}"
                                                     class="text-primary-600 hover:text-primary-900">View Reservation
                                                     Details</a>
                                             </td>
                                         @elseif($reservation->status_reservation === 'approved' && $reservation->payment_status === 'unpaid')
-                                        <form action="{{ route('payment.process', ['reservationId' => $reservation->id]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                Checkout
-                                            </button>
-                                        </form>
+                                            <form
+                                                action="{{ route('payment.process', ['reservationId' => $reservation->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    Checkout
+                                                </button>
+                                            </form>
                                         @elseif($reservation->status_reservation === 'rejected')
                                             <div class="mt-4 text-red-500">your reservation is rejected.</div>
                                     @endif

@@ -32,7 +32,8 @@
             <p class="text-base font-bold tracking-wide text-gray-900">Connect with Us</p>
             <div class="flex items-center gap-1 px-2">
                 <a href="#" class="w-full min-w-xl">
-                    <img src="https://mcqmate.com/public/images/icons/playstore.svg" alt="Playstore Button" class="h-10">
+                    <img src="https://mcqmate.com/public/images/icons/playstore.svg" alt="Playstore Button"
+                        class="h-10">
                 </a>
                 <a class="w-full min-w-xl" href="https://www.youtube.com/channel/UCo8tEi6SrGFP8XG9O0ljFgA">
                     <img src="https://mcqmate.com/public/images/icons/youtube.svg" alt="Youtube Button" class="h-28">
@@ -51,10 +52,14 @@
         <p class="text-sm text-gray-600">© 2024 Events. All rights reserved.</p>
         <ul class="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             <li>
-                <a href="#" class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Privacy Policy</a>
+                <a href="#"
+                    class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Privacy
+                    Policy</a>
             </li>
             <li>
-                <a href="#" class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Terms of Service</a>
+                <a href="#"
+                    class="text-sm text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Terms
+                    of Service</a>
             </li>
         </ul>
     </div>
