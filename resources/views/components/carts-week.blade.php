@@ -34,23 +34,36 @@
                                     <h3 class="text-xl text-[#333] font-bold flex-1" x-text="'$'+card.price"></h3>
                                 </div>
                                 <div class="flex gap-1">
-                                    <form x-bind:action="card.reserve_route" method="post" x-show="card.end_datetime > currentDateTime && card.tickets_available > 0">
-                                        @csrf 
-                                        <button type="submit" class="select-none rounded-lg bg-pink-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                            Book
+                                    @if("card.end_datetime > currentDateTime && card.tickets_available > 0")
+                                        <form x-bind:action="card.reserve_route" method="post">
+                                            @csrf
+                                            <button type="submit"
+                                                class="select-none rounded-lg bg-pink-500 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                                Book
+                                            </button>
+                                        </form>
+                                    
+                                    @else
+                                        <button
+                                            class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                            Reserve end
                                         </button>
-                                    </form>
-                                    <button class="select-none rounded-lg bg-black py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-white-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" x-show="!(card.end_datetime > currentDateTime && card.tickets_available == 0)">
-                                        Reserve end
-                                    </button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="flex items-center">
-                                <a href="#" class="flex items-center">
+                                <a :href="card.show_organizer"
+                                    class="flex items-center">
                                     <img :src="card.user.image" class="h-10 w-10 rounded-full mr-2" alt="User Avatar">
                                     <span class="text-gray-700" x-text="card.user.name"></span>
                                 </a>
                             </div>
+
+                            <a :href="card.eventShow_route"
+                                class="px-6 py-2 w-full mt-4 text-center rounded-lg text-white text-sm tracking-wider font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600">
+                                View
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -66,16 +79,19 @@
                 @foreach ($eventsOfWeek as $event)
                     {
                         id: {{ $event->id }},
-                        image: '{{ $event->image ? asset("/uploads/events/" .  $event->image  ) : '../images/yalla.png'}}',
-                        title: '{{ $event->title }}',
-                        description: '{{ $event->description }}',
+                        image: '{{ $event->image ? asset('/uploads/events/' . $event->image) : '../images/yalla.png' }}',
+                        title: '{{ Str::limit($event->title, 20, '...') }}',
+                        description: '{{ Str::limit($event->description, 80, '...') }}',
                         price: {{ $event->price }},
-                        end_datetime: '{{ $event->end_datetime }}',
+                        end_datetime: '{{ \Carbon\Carbon::parse($event->start_datetime)->format('Y-F-d h:i') }}', // Adjusted format
+                        tickets_available: {{ $event->tickets_available }},
                         reserve_route: '{{ route('events.reserve', ['eventId' => $event->id]) }}',
                         user: {
                             image: '{{ asset("images/{$event->user->image}") }}',
                             name: '{{ $event->user->name }}'
-                        }
+                        },
+                        eventShow_route: '{{ route('events.eventShow', ['event' => $event->id]) }}',
+                        show_organizer: '{{ route('organizer.page', ['userId' => $event->user->id]) }}'
                     },
                 @endforeach
             ],
@@ -83,3 +99,5 @@
         };
     }
 </script>
+
+
