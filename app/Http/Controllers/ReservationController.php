@@ -26,8 +26,16 @@ class ReservationController extends Controller
         return $this->reservationRepository->makeReservation($request, $eventId);
     }
 
-    public function updateStatus(Request $request, $id)
+    public function updateStatus(Request $request, $reservationId)
     {
-        return $this->reservationRepository->updateStatus($request, $id);
+        $request->validate([
+            'new_status' => 'required|in:approved,rejected',
+        ]);
+
+        $newStatus = $request->input('new_status');
+
+        $this->reservationRepository->updateStatus($reservationId, $newStatus);
+
+        return redirect()->back()->with('success', 'Reservation status updated successfully.');
     }
 }

@@ -47,6 +47,7 @@ class PaymentController extends Controller
             session()->forget('paymentId');
             session()->forget('reservationID');
 
+
             return view('/success-page')->with('success', 'Your reservation is completed');
         } else {
             return redirect()->route('payment.cancel');

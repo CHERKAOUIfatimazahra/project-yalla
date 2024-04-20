@@ -45,9 +45,7 @@ class ReservationRepository implements ReservationRepositoryInterface
         $reservation = new Reservation();
         $reservation->user_id = $user->id;
         $reservation->event_id = $eventId;
-        $event->decrement('tickets_available');
-        $placeNumber = $event->tickets_available + 1;
-        $reservation->place = $placeNumber;
+        $reservation->place = "unpaid";
         $reservation->reservation_code = Str::uuid()->toString();
 
         if ($event->reservation_type === 'automatique') {
@@ -58,24 +56,15 @@ class ReservationRepository implements ReservationRepositoryInterface
         } else {
             $reservation->status_reservation = 'pending';
             $reservation->save();
-
-              return redirect()->back()->with('success', 'your reservation is pending wait for approvment'); ;
+            return redirect()->back()->with('success', 'your reservation is pending wait for approvement'); ;
         }
 
     }
 
-    public function updateStatus($reservationId, $status)
+    public function updateStatus($reservationId, $newStatus)
     {
         $reservation = Reservation::findOrFail($reservationId);
-
-        if ($status === 'rejected' && $reservation->status_reservation !== 'rejected') {
-            $event = $reservation->event;
-            $event->increment('tickets_available');
-        }
-
-        $reservation->status_reservation = $status;
+        $reservation->status_reservation = $newStatus;
         $reservation->save();
-
-        return $reservation;
     }
 }

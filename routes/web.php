@@ -79,7 +79,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 Route::group(['middleware' => ['auth', 'role:organizer']], function() {
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
-    Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    // Route::put('/reservation/{id}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    // Route::put('/reservation/{reservationId}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
+    Route::put('reservation/{reservation}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
 });
 
 Route::middleware('auth')->group(function () {
