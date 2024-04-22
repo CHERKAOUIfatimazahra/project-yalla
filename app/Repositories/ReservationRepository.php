@@ -56,7 +56,7 @@ class ReservationRepository implements ReservationRepositoryInterface
         } else {
             $reservation->status_reservation = 'pending';
             $reservation->save();
-            return redirect()->back()->with('success', 'your reservation is pending wait for approvement'); ;
+            return redirect()->back()->with('success', 'your reservation is pending wait for approvement organizer'); ;
         }
 
     }
