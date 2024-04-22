@@ -68,7 +68,7 @@ Route::middleware('guest_user')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
     
-Route::group(['middleware' => ['auth', 'role:admin']], function() {
+Route::group(['middleware' => ['auth', 'role:admin','revalidate']], function() {
     Route::resource('users',UserController::class);
     Route::resource('categories',CategoryController::class);
     Route::get('/statistique',[StaticController::class, 'statisTotal']);
@@ -76,13 +76,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');  
 });
 
-Route::group(['middleware' => ['auth', 'role:organizer']], function() {
+Route::group(['middleware' => ['auth', 'role:organizer','revalidate']], function() {
     Route::get('/static-reservation',[StaticController::class, 'reservationStatique']);
     Route::get('/events/{eventId}/reservations', [ReservationController::class, 'index'])->name('events.reservations.index');
     Route::put('reservation/{reservation}/update-status', [ReservationController::class, 'updateStatus'])->name('reservations.updateStatus');
 });
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth','revalidate']], function(){
     Route::resource('events',EventController::class);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::view('/profile','dashbord.profile');
@@ -97,4 +97,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 });
+    
  

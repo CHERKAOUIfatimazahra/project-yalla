@@ -29,7 +29,7 @@ class PaymentController extends Controller
         $totalAmount = number_format($totalAmount, 2, '.', '');
 
         // create payment
-        $payment = $this->paymentRepository->createPayment($id, $totalAmount);
+        $payment = $this->paymentRepository->createPayment($id, $totalAmount); 
 
         // Redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
