@@ -4,7 +4,7 @@
     <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative">
         <x-alert />
         <div class="bg-cover bg-center text-center overflow-hidden"
-            style="min-height: 500px; background-image: url({{ $event->image ? asset('/uploads/events/' . $event->image) : '../images/yalla.png' }})"
+            style="min-height: 500px; background-image: url({{ $event->image ? asset('/uploads/events/' . $event->image) : asset('/images/yalla.png') }})"
             title="Event Image">
         </div>
         <div class="max-w-3xl mx-auto">

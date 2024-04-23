@@ -25,7 +25,7 @@
             <div class="w-full px-8 md:px-32 lg:px-24">
                 <form class="bg-white rounded-md shadow-2xl p-5" method="POST" action="{{ route('register') }}">
                     @csrf
-                    <h1 class="text-gray-800 font-bold text-2xl mb-1">Welcome to Evento!</h1>
+                    <h1 class="text-gray-800 font-bold text-2xl mb-1">Welcome to YALLA!</h1>
                     <p class="text-sm font-normal text-gray-600 mb-8">Create your account</p>
                     <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
@@ -69,13 +69,6 @@
 
                     </div>
 
-                    {{-- <div class="flex items-center border-2 mb-8 py-2 px-3 rounded-2xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                        </svg>
-                        <input type="file" id="image" name="image" class="pl-2 w-full outline-none border-none">
-                    </div>
-                     --}}
                     <div class="mb-8">
                         <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Choose Your Role:</label>
                         <select id="role" name="role"

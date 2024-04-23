@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -19,10 +20,16 @@ class UpdateCategoryRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
+        $categoryId = $this->route('category')  ?? null;
+        
         return [
-            'name' => 'nullable|unique:categories,name,',
+            'name' => [
+                'nullable',
+                Rule::unique('categories', 'name')->ignore($categoryId),
+            ],
             'description' => 'nullable|string',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 

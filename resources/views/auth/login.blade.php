@@ -18,8 +18,8 @@
 
             </div>
             <div class="w-full mx-auto px-20 flex-col items-center space-y-6">
-                <h1 class="text-white font-bold text-4xl font-sans">Evento</h1>
-                <p class="text-white mt-1">Welcome to Evento, </p>
+                <h1 class="text-white font-bold text-4xl font-sans">YALLA</h1>
+                <p class="text-white mt-1">Welcome to YALLA, </p>
 
                 <div class="flex justify-center lg:justify-start mt-6">
                     <a href="{{ route('register') }}"

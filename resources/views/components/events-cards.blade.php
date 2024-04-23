@@ -2,7 +2,7 @@
 <div
     class="bg-white shadow-[0_8px_12px_-6px_rgba(0,0,0,0.2)] border p-2 w-96 rounded-lg font-[sans-serif] overflow-hidden m-2 mt-4">
     <div class="flex items-center justify-between px-4 mt-2">
-        <img src="{{ $event->image ? asset('/uploads/events/' . $event->image) : 'images/yalla.png' }}"
+        <img src="{{ $event->image ? asset('/uploads/events/' . $event->image) : asset('/images/yalla.png') }}"
             class="w-full h-56 rounded-lg" />
     </div>
 

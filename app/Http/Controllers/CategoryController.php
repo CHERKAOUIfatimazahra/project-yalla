@@ -33,7 +33,7 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
 
-        $imageFileName = null;
+        
         $iconFileName = null;
         
         if ($request->hasFile('image')) {
@@ -42,14 +42,15 @@ class CategoryController extends Controller
             $path = 'uploads/events/';
             $file->move($path, $imageFileName);
         }
-
+            
+            $data["image"] = $imageFileName;
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
             $iconFileName = time() . '.' . $file->getClientOriginalExtension();
             $path = 'uploads/events/';
             $file->move($path, $iconFileName);
         }
-
+        $data["icon"] = $iconFileName;
 
         $this->categoryRepository->create($data);
 
@@ -69,15 +70,20 @@ class CategoryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images');
-            $data['image'] = $imagePath;
+            $file = $request->file('image');
+            $imageFileName = time() . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads/events/';
+            $file->move($path, $imageFileName);
+            $data["image"] = $imageFileName;
         }
-
+            
         if ($request->hasFile('icon')) {
-            $iconPath = $request->file('icon')->store('icons');
-            $data['icon'] = $iconPath;
+            $file = $request->file('icon');
+            $iconFileName = time() . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads/events/';
+            $file->move($path, $iconFileName);
+            $data["icon"] = $iconFileName;
         }
-
         $this->categoryRepository->update($category, $data);
 
         return redirect()->route('categories.index')
