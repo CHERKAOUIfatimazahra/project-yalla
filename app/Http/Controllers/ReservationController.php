@@ -13,7 +13,7 @@ class ReservationController extends Controller
     {
         $this->reservationRepository = $reservationRepository;
     }
-
+ 
     public function index($eventId)
     {
         $reservations = $this->reservationRepository->index($eventId);

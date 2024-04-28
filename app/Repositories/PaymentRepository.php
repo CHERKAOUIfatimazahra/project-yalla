@@ -8,7 +8,7 @@ use Mollie\Laravel\Facades\Mollie;
 
 class PaymentRepository implements PaymentRepositoryInterface
 {
-    public function createPayment($reservationId, $totalAmount)
+    public function createPayment($reservationId, $totalAmount) 
     {
         $reservation = Reservation::find($reservationId);
 

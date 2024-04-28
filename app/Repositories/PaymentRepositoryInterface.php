@@ -8,5 +8,5 @@ interface PaymentRepositoryInterface
 
     public function getPayment($paymentId);
 
-    public function updateReservationPaymentStatus($reservationId);
+    public function updateReservationPaymentStatus($reservationId); 
 }

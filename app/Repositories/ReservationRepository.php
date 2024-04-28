@@ -11,7 +11,7 @@ class ReservationRepository implements ReservationRepositoryInterface
 {
     public function index($eventId)
     {
-        return Reservation::where('event_id', $eventId)
+        return Reservation::where('event_id', $eventId) 
                           ->latest()
                           ->paginate(10);
     }

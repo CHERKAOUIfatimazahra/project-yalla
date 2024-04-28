@@ -10,5 +10,5 @@ interface ReservationRepositoryInterface
 
     public function makeReservation($userId, $eventId);
 
-    public function updateStatus($reservationId, $status);
+    public function updateStatus($reservationId, $status); 
 }

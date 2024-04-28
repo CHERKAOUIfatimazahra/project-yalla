@@ -95,7 +95,7 @@
         </div>
     </section>
     {{-- end Popular enets section --}}
-    <section class="bg-white-100 py-6 p-20">
+    {{-- <section class="bg-white-100 py-6 p-20">
         <div class="container relative z-40 mx-auto mt-12">
             <div class="flex flex-w justify-center mx-auto lg:w-full md:w-5/6 xl:shadow-small-blue">
 
@@ -189,7 +189,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- section for filter and events cards --}}
     <section>

@@ -15,7 +15,7 @@ class PaymentController extends Controller
         $this->paymentRepository = $paymentRepository;
     }
 
-    public function payment($id)
+     public function payment($id)
     {
         $reservation = Reservation::find($id);
 
